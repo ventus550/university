@@ -1,0 +1,15 @@
+Zadanie 6. Powiedzmy, że rozwiązujemy za pomocą A∗
+zadanie o podróżowaniu samochodem (warianty z paliwem, lub paczkami). Przyjmijmy, że liczba węzłów na mapie jest rzędu 100. Jaki preprocessing wydaje się być użyteczny dla liczenia funkcji h w każdym z tych wariantów? Dodatkowo
+zaproponuj optymistyczną heurystykę (o możliwie dużych wartościach) dla zadania z poprzedniej listy
+o podróżowaniu z paliwem.
+
+Stany mają dwie składowe:
+- paliwo
+- miasta
+
+Miast jest rzędu 100 (czyli nie tak wiele)
+Natomiast samych stanów może być znacząco więcej.
+Przypuszczalnie wielokrotnie odwiedzimy to samo miasto.
+Wybierając heurystykę metryczną będziemy musieli wielokrotnie obliczać odległości między danym miastem a wierzchołkiem docelowym.
+Stąd opłaca się wykonać preprocessing wyliczający te wartości tylko raz.
+Wykorzystamy do tego algorytm Dijkstry, który wyznaczy optymalną odległość do celu dla każdego z miast.
