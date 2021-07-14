@@ -1,0 +1,11 @@
+# depslib dependency file v1.0
+1588166696 source:c:\users\ventu\onedrive\sync\minic\lista4\z1\main.c
+	"bst.c"
+
+1588166708 c:\users\ventu\onedrive\sync\minic\lista4\z1\bst.c
+	<stdio.h>
+	<stdlib.h>
+	"bst.h"
+
+1588166663 c:\users\ventu\onedrive\sync\minic\lista4\z1\bst.h
+
