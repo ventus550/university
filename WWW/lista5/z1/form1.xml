@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+
+<form
+xmlns="abc"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="note.xsd">
+  <konto>12312312312312312312312312</konto>
+  <pesel>10101010101</pesel>
+  <data>01.01.2020</data>
+  <mail>testmail@mail.com</mail>
+</form>

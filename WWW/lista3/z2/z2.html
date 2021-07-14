@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title> title </title>
+	<meta charset="UTF-8">	
+</head>
+
+<body>
+	<form>
+		<fieldset>
+			<legend>Formularz</legend>
+			
+			<label for="marka">Marka:</label><br>
+			<select id="marka" name="marka"></select><br>
+
+			<label for="model">Model</label><br>
+			<select id="model" name="model"> </select><br>
+
+			<label for="nowa">Nowa Pozycja</label><br>
+			<input type="text" id="nowa" name="nowa"><br>
+			
+			<label for="rodzaj">Chcę dodać</label><br>
+			<input type="radio" id="rodzaj1" name="rodzaj" checked>
+			<label for="rodzaj">Marka</label><br>
+			<input type="radio" id="rodzaj2" name="rodzaj">
+			<label for="rodzaj">Model</label><br>
+
+			<button type="button" id="dodaj">Dodaj pozycję</button>
+		</fieldset>
+	</form>
+	
+	<script>
+		const list = {
+			Ford: ["Ecosport", "Edge"],
+			Fiat: ["Tipo", "Panda"]
+		};
+
+		const Form = {
+			marka: document.getElementById("marka"),
+			model: document.getElementById("model"),
+			nowa: document.getElementById("nowa"),
+			rodzaj1: document.getElementById("rodzaj1"),
+			rodzaj2: document.getElementById("rodzaj2"),
+			dodaj: document.getElementById("dodaj")
+		};
+
+		//Marka ----------
+		function addOption(ele, str) {
+			let e = document.createElement("option");
+			e.textContent = str;
+			ele.appendChild(e);
+		}
+
+		Form.marka.onchange = function () {
+			while (Form.model.firstChild) {
+				Form.model.removeChild(Form.model.firstChild);
+			}
+
+			list[Form.marka.value].forEach(e => {
+				addOption(Form.model, e);
+			});
+		};
+
+		addOption(Form.marka, "Ford");
+		addOption(Form.marka, "Fiat");
+		addOption(Form.model, list.Ford[0]);
+		addOption(Form.model, list.Ford[1]);
+
+		//Dodaj ----------
+		Form.dodaj.onclick = function () {
+			const val = Form.nowa.value;
+
+			if(Form.rodzaj1.checked) {
+				console.log(val);
+				list[val] = [];
+				addOption(Form.marka, val);
+			} else {
+				list[Form.marka.value].push(val);
+				addOption(Form.model, val);
+			}
+		};
+	</script>
+	
+	
+</body>
+</html>

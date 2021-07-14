@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script>
+		$(document).ready(function(){
+			
+			function news(title, link, img, context) {
+				
+				$("<ul/>").css({backgroundColor: "#eeeeee", width: "800px", padding: "20px", margin: "50px", boxShadow: "0px 0px  5px grey"}).append(
+					$("<div/>").css({textAlign: "center", fontSize: "30px"}).text(title),
+					$(img).css({width: "100%", marginTop: "20px", marginBottom: "20px", cursor: "pointer"}).click(function () {window.location.href = link;}),
+					$(context)).appendTo(document.body);
+			}			
+			
+			$.get("https://cors-anywhere.herokuapp.com/" + "https://tvn24.pl/najnowsze.xml", {}, (data) => {
+				let xml = $.parseXML(data);
+				$(xml).find("item").each(function () {
+					
+					let t = $(this).children(),
+						desc = $.parseHTML($(t[2]).text());
+					
+					document.body.append(desc[1]);
+					console.log($(t[1]).text());
+					news($(t[0]).text(), $(t[1]).text(), desc[1], desc[2]);
+	
+				});
+			}, "text")
+			
+		});
+	</script>
+</head>
+<body>
+</body>
+</html>

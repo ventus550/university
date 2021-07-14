@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+targetNamespace="abc"
+xmlns="abc"
+elementFormDefault="qualified">
+
+<xs:element name="form">
+  <xs:complexType>
+    <xs:sequence>
+		
+		<xs:element name="konto">
+		  <xs:simpleType>
+			<xs:restriction base="xs:integer">
+			  <xs:pattern value="[0-9]{26}"/>
+			</xs:restriction>
+		  </xs:simpleType>
+		</xs:element>
+		
+		<xs:element name="pesel">
+		  <xs:simpleType>
+			<xs:restriction base="xs:integer">
+			  <xs:pattern value="[0-9]{11}"/>
+			</xs:restriction>
+		  </xs:simpleType>
+		</xs:element>
+		
+		<xs:element name="data">
+		  <xs:simpleType>
+			<xs:restriction base="xs:string">
+			  <xs:pattern value="(0[1-9]|[12][0-9]|3[01]).(0[1-9]|1[012]).(19|20)\d\d"/>
+			</xs:restriction>
+		  </xs:simpleType>
+		</xs:element>
+		
+		<xs:element name="mail">
+		  <xs:simpleType>
+			<xs:restriction base="xs:string">
+			  <xs:pattern value="[^@]+@[^\.]+\..+"/>
+			</xs:restriction>
+		  </xs:simpleType>
+		</xs:element>
+		
+    </xs:sequence>
+  </xs:complexType>
+</xs:element>
+
+</xs:schema>

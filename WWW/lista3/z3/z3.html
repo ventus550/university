@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title> title </title>
+	<meta charset="UTF-8">
+	
+
+</head>
+
+<body>
+	<script>
+		function r255(){return Math.random() * 255;}
+		function Box(x, timer) {
+			let b = document.createElement("div");
+			document.body.appendChild(b);
+			Object.assign(b.style, {
+				width: "50px",
+				height: "50px",
+				borderRadius: "10%",
+				backgroundColor: "rgb("+ r255() + ", " + r255() + ", " + r255() + ")",
+				position: "absolute",
+				left: x,
+				top: "150px"
+			});
+
+			b.direction = 1;
+			b.timer = timer;
+			b.move = function (val) {
+
+				b.timer += 1;
+				if(b.timer >= 200) {
+					b.style.top = parseInt(b.style.top, 10) + b.direction*val + "px";
+					if(b.timer === 215) {
+						b.direction *= -1;
+						b.timer = 0;
+					}
+				}
+			};
+			return b;
+		}
+
+		let boxes = [];
+		for(let i = 0; i < 5; i++) {
+			boxes[i] = Box(100 + i*60 + "px", -i*30);
+		}
+
+		setInterval(() => {
+			boxes.forEach(b => {
+				b.move(5);
+			});
+		}, 10);
+	</script>
+	
+</body>
+</html>

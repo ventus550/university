@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://unpkg.com/mustache@latest"></script>
+
+  </head>
+  <body>	  
+	<script>
+		
+		const template = "<ul><li> tytuł: {{title}} </li>" +
+			  		     "<li> treść: {{description}} </li>" +
+			  		     "<li> link: {{link}} </li></ul>"
+			  			
+		
+		
+		$.getJSON("tvn24.json", function(json) {
+			let items = json.rss.channel.item;
+			
+			
+			for(let i = 0; i < 5; i++) {
+				let t = Mustache.render(template, {
+					title: items[i].title.__cdata,
+					description: $($.parseHTML(items[i].description.__cdata)[2]).text(),
+					link: items[i].link
+				});
+				document.body.appendChild($.parseHTML(t)[0]);
+		}
+			
+		});
+		
+		
+		
+	  
+	</script>
+	  
+  </body>
+</html>

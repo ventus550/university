@@ -1,0 +1,2 @@
+Domyślam się, że zmiana nazwy DNS w pliku hosts powinna rezultować zmianą otwierającej się storny przy wyszukiwaniu jej za pomocą tej nazwy.
+W praktyce adresy podane w treści zadania są jakoś blokowane. Spekuluję, że ma to związek z tym jak traktowane są bezpośrednie IP (plik directIP.png).

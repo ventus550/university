@@ -1,0 +1,29 @@
+{
+  "$schema": "http://w3schools.in/json-06/schema#",
+  "title": "form",
+  "type": "object",
+  "properties": {
+    "konto": {
+      "type": "string",
+	  "pattern": "[0-9]{26}"
+    },
+    "pesel": {
+      "type": "string",
+	  "pattern": "[0-9]{11}"
+    },
+    "data": {
+      "type": "string",
+	  "pattern": "(0[1-9]|[12][0-9]|3[01]).(0[1-9]|1[012]).(19|20)\\d\\d"	
+    },
+	"mail": {
+      "type": "string",
+	  "pattern": "[^@]+@[^\\.]+\\..+"
+    }
+  },
+  "required": [
+    "konto",
+	"pesel",
+	"data",
+	"mail"
+  ]
+}

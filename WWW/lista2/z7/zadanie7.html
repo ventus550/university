@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title> title </title>
+	<meta charset="UTF-8">
+	
+	<style>
+		input {
+			transition: 0.5s border, 0.25s color;
+		}
+		
+		input[type=text]:focus {
+			width: 310px;
+			border: 5px solid aqua;
+		}
+		
+		input[type=submit]:focus {
+			color: aqua;
+			text-shadow: 1px 1px black;
+		}
+	</style>
+	
+	
+</head>
+
+<body>
+	<form>
+		<fieldset>
+			<legend>Formularz</legend>
+			
+			<label for="imie">imię:</label><br>
+			<input type="text" id="imie" name="imie"><br>
+
+			<label for="nazwisko">nazwisko:</label><br>
+			<input type="text" id="nazwisko" name="nazwisko"><br>
+
+			<label for="adres">adres:</label><br>
+			<input type="text" id="adres" name="adres"><br><br><br><br>
+
+			<input type="submit" value="Submit">
+		</fieldset>
+	</form>
+	
+	
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title> title </title>
+	<meta charset="UTF-8">
+</head>
+
+<body>
+	<script>
+		function r255(){return Math.random() * 255;}
+
+		function div(d) {
+			let e = document.createElement("div");
+			Object.assign(e.style, {
+				width: "100px",
+				height: "100px",
+				padding: "25px",
+				border: "10px solid black", 
+				margin: "10px",
+				display: d,
+				backgroundColor: "rgb("+ r255() + ", " + r255() + ", " + r255() + ")"
+			});
+			document.body.appendChild(e);
+			return e;
+		}
+
+		div("inline");
+		div("inline");
+		div("inline");
+		div("inline");
+		div("inline");
+
+		div("block");
+		div("block");
+		div("block");
+		div("block");
+
+		div("inline-block");
+		div("inline-block");
+		div("inline-block");
+		div("inline-block");
+		div("inline-block");
+	</script>
+	
+	
+</body>
+</html>

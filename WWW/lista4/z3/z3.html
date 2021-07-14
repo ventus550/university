@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+	
+	<style>		
+		.image {
+			width: 100px;
+			height: 100px;
+			opacity: 0.5;
+			display: inline-block;
+			margin: 10px;
+		}
+		
+		.image.selected {
+			opacity: 1.0;
+		}
+	
+	
+	</style>
+	
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script>
+		
+		$(document).ready(function(){
+			
+			$("<div/>", {
+				id: "gallery"
+			}).appendTo($(document.body)).css({width: "500px", height: "500px"});
+
+			for(let i = 0; i < 4; i++) {
+				for(let j = 0; j < 4; j++) {
+					$("<div/>", {
+						class: "image",
+						click: function () {
+							$(this).toggleClass("selected").data("marked", !$(this).data("marked"));
+						}
+					}).appendTo($("#gallery")).data("name", "Image" + i + j + " ").css({backgroundImage: "url(https://pbs.twimg.com/profile_images/758084549821730820/_HYHtD8F.jpg)", backgroundSize: "100% 100%"});
+				}
+			}
+			
+			$("<button/>", {
+				id: "button",
+				click: function() {
+					$("#button").data("set", !$("#button").data("set"));
+					$("#gallery").children().each(function() {
+						if($("#button").data("set")) {
+							$(this).addClass("selected");
+							$(this).data("marked", true);
+						} else {
+							$(this).removeClass("selected");
+							$(this).data("marked", false);
+						}	
+					});
+				}
+			}).appendTo($(document.body)).css({width: "150px", height: "25px", margin: "10px"}).text("Toggle");
+			
+			
+			$("<button/>", {
+				id: "logbutton",
+				click: function() {
+					$("#log").val("");
+					$("#gallery").children().each(function() {
+						if($(this).data("marked")) {
+							$("#log").val($("#log").val()+$(this).data("name"));
+						}
+					});
+				}
+			}).appendTo($(document.body)).css({width: "150px", height: "25px", margin: "10px"}).text("Log");
+			
+			
+			
+			$("<textarea/>", {
+				id: "log"
+			}).appendTo($(document.body)).css({display: "block", width: "315px", height: "100px", margin: "10px"});
+			
+			
+		});
+	</script>
+</head>
+<body>
+</body>
+</html>

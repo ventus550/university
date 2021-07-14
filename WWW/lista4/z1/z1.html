@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script>
+		$(document).ready(function(){
+			
+			$("#input").on("keyup", function() {
+				let value = $(this).val();
+				
+				let items = $("#ls").children().each(function () {
+					if($(this).text() == value) {
+						$(this).css({"color" : "black"});
+						$(this).css({"background-color" : "yellow"});
+					} else {
+						if(value) {
+							$(this).css({"color" : "grey"});
+							$(this).css({"background-color" : "white"});
+						} else {$(this).css({"color" : "black"});}
+					}
+				});
+				
+			});
+			
+
+			
+		});
+	</script>
+</head>
+<body>
+
+	
+	<input id="input" type="text" placeholder="Search..">
+	<br>
+	
+	<ul id="ls">
+	  <li>Coffee</li>
+	  <li>Tea</li>
+	  <li>Milk</li>
+	</ul> 
+
+</body>
+</html>

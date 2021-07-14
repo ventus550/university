@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title> title </title>
+	<meta charset="UTF-8">	
+</head>
+
+<body>
+	<form>
+		<fieldset>
+			<legend>Formularz</legend>
+
+			<label for="konto">nr konta</label><br>
+			<input type="text" id="konto" name="konto"><br>
+			
+			<label for="pesel">pesel</label><br>
+			<input type="text" id="pesel" name="pesel"><br>
+			
+			<label for="data">data urodzenia</label><br>
+			<input type="text" id="data" name="data"><br>
+			
+			<label for="mail">e-mail</label><br>
+			<input type="text" id="mail" name="mail"><br>
+
+
+			<button type="button" id="dodaj">Dodaj pozycję</button>
+		</fieldset>
+	</form>
+	
+	<script>
+		const Form = {
+			konto: [document.getElementById("konto"), /^[0-9]{26}$/],
+			pesel: [document.getElementById("pesel"),  /^[0-9]{11}$/],
+			data: [document.getElementById("data"),  /^(19|20)\d\d([- /.])(0[1-9]|1[012])\2(0[1-9]|[12][0-9]|3[01])$/],
+			mail: [document.getElementById("mail"), /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i]
+		};
+
+		function validate(element, regex) {
+			if(regex.test(element.value)) {
+				element.style.border = "2px solid green";
+			} else {
+				element.style.border = "2px solid red";
+			}
+		}
+
+		for(let f of Object.values(Form)) {
+
+			f[0].addEventListener("focusout", function () {
+				validate(f[0], f[1]);
+			});
+		}
+
+		document.getElementById("dodaj").onclick = function () {
+			for(let f of Object.values(Form)) {
+				validate(f[0], f[1]);
+			}
+		};
+	</script>
+	
+</body>
+</html>

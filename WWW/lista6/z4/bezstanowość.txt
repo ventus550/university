@@ -1,0 +1,3 @@
+Protokół http nie przechowuje informacji o poprzednich żądaniach tj. nie posiada stanu wewnętrzengo.
+Każde pytanie do serwera jest traktowane osobno i nie jest kojarzone z poprzednimi zapytaniami.
+Bezstanowość http obchodzi się często za pomocą plików cookies.

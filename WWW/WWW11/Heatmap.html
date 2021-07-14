@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <script type="text/javascript">
+    function GetMap() {
+        var map = new Microsoft.Maps.Map('#myMap', {
+			center: new Microsoft.Maps.Location(52.5, 20)
+		});
+
+        var locs = Microsoft.Maps.TestDataGenerator.getLocations(1000, map.getBounds());
+        
+        Microsoft.Maps.loadModule('Microsoft.Maps.HeatMap', function () {
+            var heatmap = new Microsoft.Maps.HeatMapLayer(locs);
+            map.layers.insert(heatmap);
+        });
+    }
+    </script>
+    <script type="text/javascript" src='https://www.bing.com/api/maps/mapcontrol?callback=GetMap&key=AugI1fZfr3dlMWL-zn3opLylCwGxeXKumbZ4kIJBcQFXYQkrXthn5EAZo9kbvg4y' async defer></script>
+</head>
+<body>
+    <div id="myMap" style="position:relative;width:800px;height:600px;"></div>
+</body>
+</html>
