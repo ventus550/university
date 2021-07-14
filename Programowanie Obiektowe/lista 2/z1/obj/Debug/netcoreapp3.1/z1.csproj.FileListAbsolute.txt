@@ -1,0 +1,11 @@
+C:\Users\ventu\OneDrive\sync\Programowanie Obiektowe\lista 2\z1\bin\Debug\netcoreapp3.1\z1.exe
+C:\Users\ventu\OneDrive\sync\Programowanie Obiektowe\lista 2\z1\bin\Debug\netcoreapp3.1\z1.deps.json
+C:\Users\ventu\OneDrive\sync\Programowanie Obiektowe\lista 2\z1\bin\Debug\netcoreapp3.1\z1.runtimeconfig.json
+C:\Users\ventu\OneDrive\sync\Programowanie Obiektowe\lista 2\z1\bin\Debug\netcoreapp3.1\z1.runtimeconfig.dev.json
+C:\Users\ventu\OneDrive\sync\Programowanie Obiektowe\lista 2\z1\bin\Debug\netcoreapp3.1\z1.dll
+C:\Users\ventu\OneDrive\sync\Programowanie Obiektowe\lista 2\z1\bin\Debug\netcoreapp3.1\z1.pdb
+C:\Users\ventu\OneDrive\sync\Programowanie Obiektowe\lista 2\z1\obj\Debug\netcoreapp3.1\z1.csprojAssemblyReference.cache
+C:\Users\ventu\OneDrive\sync\Programowanie Obiektowe\lista 2\z1\obj\Debug\netcoreapp3.1\z1.AssemblyInfoInputs.cache
+C:\Users\ventu\OneDrive\sync\Programowanie Obiektowe\lista 2\z1\obj\Debug\netcoreapp3.1\z1.AssemblyInfo.cs
+C:\Users\ventu\OneDrive\sync\Programowanie Obiektowe\lista 2\z1\obj\Debug\netcoreapp3.1\z1.dll
+C:\Users\ventu\OneDrive\sync\Programowanie Obiektowe\lista 2\z1\obj\Debug\netcoreapp3.1\z1.pdb
