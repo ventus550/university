@@ -1,0 +1,59 @@
+#lang racket
+(provide with-labels with-labels/c
+         foldr-map foldr-map/c
+         pair-from pair-from/c)
+
+(require racket/contract)
+
+
+(define with-labels/c
+  (parametric->/c [a b] (-> (-> a b) (listof a) (listof (cons/c b (cons/c a null?))))))
+(define (with-labels f xs)
+  with-labels/c
+  (map (lambda (x) (list (f x) x)) xs))
+
+
+
+
+
+(define foldr-map/c 
+    (parametric->/c [x a t]
+                    (-> (-> x a (cons/c t a))
+                        a 
+                        (listof x)
+                        (cons/c (listof t) a))))
+(define/contract (foldr-map f a xs)
+  foldr-map/c
+  (define (it a xs ys)
+    (if (null? xs)
+        (cons ys a)
+        (let [(p (f (car xs) a))]
+          (it (cdr p) 
+              (cdr xs) 
+              (cons (car p) ys)))))
+  (it a (reverse xs) null))
+
+
+
+
+
+(define pair-from/c
+  (parametric->/c [fv gv x] (-> (-> x fv) (-> x gv) (-> x (cons/c fv gv)))))
+(define/contract (pair-from f g)
+  pair-from/c
+  (lambda (x) (cons (f x) (g x))))
+  
+
+
+
+
+
+
+
+  
+
+
+ 
+ 
+
+  
