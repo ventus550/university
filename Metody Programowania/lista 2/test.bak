@@ -1,0 +1,27 @@
+#lang racket
+
+(define (calc Di Ni)
+  
+  (define (abs n)
+    (if (< n 0)
+        (- n)
+        n))
+  
+  (define (dist n m)
+    (abs (- n m)))
+    
+  
+  (define (calc-iter n fst1 sec1 fst2 sec2 prev)
+    (define Dn (Di n))
+    (define Nn (Ni n))
+    (define An (+ (* Dn fst1) (* Nn sec1)))
+    (define Bn (+ (* Dn fst2) (* Nn sec2)))
+    (define res (/ An Bn))
+    
+    (if (< (dist prev res) 0.00001)
+        
+        res
+
+        (calc-iter (+ n 1) An fst1 Bn fst2 res)))
+
+  (calc-iter 1 0.0 1.0 1.0 0.0 0))
