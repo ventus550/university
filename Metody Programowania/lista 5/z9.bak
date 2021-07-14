@@ -1,0 +1,194 @@
+#lang racket
+
+(define (var? t)
+  (symbol? t))
+(define (neg? t)
+  (and (list? t)
+       (= 2 (length t))
+       (eq? 'neg (car t))))
+(define (conj? t)
+  (and (list? t)
+       (= 3 (length t))
+       (eq? 'conj (car t))))
+(define (disj? t)
+  (and (list? t)
+       (= 3 (length t))
+       (eq? 'disj (car t))))
+
+
+(define (neg-subf f) (cdr f))
+(define (disj-left f) (second f))
+(define (disj-rght f) (third f))
+(define (conj-left f) (second f))
+(define (conj-rght f) (third f))
+
+
+(define (prop? f)
+  
+  
+  (or (var? f)
+      (and (neg? f)
+           (prop? (neg-subf f)))
+      (and (disj? f)
+           (prop? (disj-left f))
+           (prop? (disj-rght f)))
+      (and (conj? f)
+           (prop? (conj-left f))
+           (prop? (conj-rght f)))))
+
+
+(define (disj p q)
+  (list 'disj p q))
+(define (conj p q)
+  (list 'conj p q))
+(define (neg p)
+  (list 'neg p))
+
+(define (distribute-right disj-f) ;; p V (q Λ r) <=> (p V q) Λ (p V r)
+  (define left (second disj-f))
+  (define right (third disj-f))
+  (list 'conj
+        (list 'disj left (conj-left right))
+        (list 'disj left (conj-rght right))))
+
+(define (distribute-left disj-f) ;;(p Λ q) V r <=> (p V r) Λ (q V r)
+  (define left (second disj-f))
+  (define right (third disj-f))
+  (list 'conj
+        (list 'disj right (conj-left left))
+        (list 'disj right (conj-rght left))))
+
+
+(define (test f)
+  (define (validate op L R)
+        (if (and (car L) (car R))
+            (cons true (op (cdr L) (cdr R)))
+            (inspect (op (cdr L) (cdr R)))))
+
+  (define (inspect f)
+    (cond
+      [(var? f) (cons true f)]
+    
+      [(conj? f) (validate conj (inspect (conj-left f)) (inspect (conj-rght f)))]
+
+      [(neg? f)
+       (cond
+         [(var? (second f)) (cons true f)]
+         [(neg? (second f)) (cons false (second (second f)))]
+         [(conj? (second f)) (cons false (disj (neg (second (second f))) (neg (third (second f)))))]
+         [(disj? (second f)) (cons false (conj (neg (second (second f))) (neg (third (second f)))))])]
+
+      [(disj? f)
+       (cond
+         [(conj? (disj-left f)) (cons false (distribute-left f))]
+         [(conj? (disj-rght f)) (cons false (distribute-right f))]
+         [else (validate disj (inspect (disj-left f)) (inspect (disj-rght f)))])]))
+  (define cnf
+    (let build ([res (inspect f)])
+      (if (car res)
+          (cdr res)
+          (build (inspect (cdr res))))))
+  
+  cnf)
+
+
+(define (isContradiction ls)
+  (lambda (x) 
+    (if (neg? x)
+        (member (second x) ls)
+        (member (neg x) ls))))
+
+(define (eval-set S)
+  (define ls (remove-duplicates S))
+
+  (cond
+    [(eq? ls false) false]
+    [(eq? (car ls) true) true]
+    [(= (length ls) 1) true]
+    [else (= (length (filter (isContradiction ls) ls)) 0)]))
+
+(define (eval-cnf cnf)
+  
+  (define (eval cnf)
+    (cond
+      [(var? cnf) (list cnf)]
+      [(neg? cnf) (list cnf)]
+      [(disj? cnf) (append (eval (second cnf)) (eval (third cnf)))]
+      [(conj? cnf)
+       (let ([left (eval (second cnf))] [right (eval (third cnf))])
+         (cond
+           [(eval-set left) (cons true left)]
+           [(eval-set right) (cons true right)]
+           [else false]))]))
+  
+  (if (eval-set (eval cnf))
+      (cdr (eval cnf))
+      false))
+       
+       
+  
+
+
+
+;; (CNF f') !
+
+;;(test (disj 'p (disj (conj 'x 'y) (conj 'r 't))))
+;;(test (neg (disj 'p 'q)))
+
+;;(define t (neg (disj 'p 'q)))
+;;(test (disj (neg (neg (conj 'p 'q))) 'r))
+(eval-cnf (test (disj (neg (neg (conj 'p 'q))) 'r)))
+(eval-cnf (test (disj (neg 'p) 'p)))
+(eval-cnf (test (conj (disj (neg 'r) 'r) (disj 'r 'p))))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  

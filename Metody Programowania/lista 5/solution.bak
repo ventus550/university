@@ -1,0 +1,167 @@
+#lang racket
+(require "props.rkt")
+(provide falsifiable-cnf?)
+
+(define (neg-subf f) (cdr f))
+(define (disj-left f) (second f))
+(define (disj-rght f) (third f))
+(define (conj-left f) (second f))
+(define (conj-right f) (third f))
+
+
+(define (prop? f)
+  
+  
+  (or (var? f)
+      (and (neg? f)
+           (prop? (neg-subf f)))
+      (and (disj? f)
+           (prop? (disj-left f))
+           (prop? (disj-rght f)))
+      (and (conj? f)
+           (prop? (conj-left f))
+           (prop? (conj-right f)))))
+
+(define (distribute-right disj-f) ;; p V (q Λ r) <=> (p V q) Λ (p V r)
+  (define left (second disj-f))
+  (define right (third disj-f))
+  (list 'conj
+        (list 'disj left (conj-left right))
+        (list 'disj left (conj-right right))))
+
+(define (distribute-left disj-f) ;;(p Λ q) V r <=> (p V r) Λ (q V r)
+  (define left (second disj-f))
+  (define right (third disj-f))
+  (list 'conj
+        (list 'disj right (conj-left left))
+        (list 'disj right (conj-right left))))
+
+
+(define (cnf f)
+  (define (validate op L R)
+        (if (and (car L) (car R))
+            (cons true (op (cdr L) (cdr R)))
+            (inspect (op (cdr L) (cdr R)))))
+
+  (define (inspect f)
+    (cond
+      [(var? f) (cons true f)]
+    
+      [(conj? f) (validate conj (inspect (conj-left f)) (inspect (conj-right f)))]
+
+      [(neg? f)
+       (cond
+         [(var? (second f)) (cons true f)]
+         [(neg? (second f)) (cons false (second (second f)))]
+         [(conj? (second f)) (cons false (disj (neg (second (second f))) (neg (third (second f)))))]
+         [(disj? (second f)) (cons false (conj (neg (second (second f))) (neg (third (second f)))))])]
+
+      [(disj? f)
+       (cond
+         [(conj? (disj-left f)) (cons false (distribute-left f))]
+         [(conj? (disj-rght f)) (cons false (distribute-right f))]
+         [else (validate disj (inspect (disj-left f)) (inspect (disj-rght f)))])]))
+  
+   (let build ([res (inspect f)])
+     (if (car res)
+         (cdr res)
+         (build (inspect (cdr res))))))
+
+
+
+
+(define (eval-cnf cnf)
+
+  (define (isContradiction ls)
+  (lambda (x) 
+    (if (neg? x)
+        (member (second x) ls)
+        (member (neg x) ls))))
+
+  (define (eval-set S)
+    (define ls
+      (if S
+          (filter (lambda (x) (if x true false)) (remove-duplicates S))
+          null))
+    
+    (cond
+      [(null? ls) false]
+      [(> (length (filter (isContradiction ls) ls)) 0) false]
+      [else ls]))
+  
+  (define (eval cnf)
+    (cond
+      [(var? cnf) (list cnf)]
+      [(neg? cnf) (list cnf)]
+      [(disj? cnf) (eval-set (append (eval (second cnf)) (eval (third cnf))))]
+      [(conj? cnf)
+       (let ([left (eval (second cnf))])
+         (if left
+             left
+             (let ([right (eval (third cnf))])
+               (if right
+                   right
+                   false))))]))
+  
+  (define (falsify-set ls)      
+    (define (falsify lit)
+      (if (neg? lit)
+          (list (second lit) #t)
+          (list lit #f)))
+    (map falsify ls))
+
+  (if (or (var? cnf) (neg? cnf))
+      (falsify-set (list cnf))
+      (let ([ev (eval cnf)])
+        (if (eval-set ev)
+            (falsify-set ev)
+            false))))
+
+(define (falsifiable-cnf? f)
+  (eval-cnf (cnf f)))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
