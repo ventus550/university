@@ -1,0 +1,25 @@
+#lang racket
+
+( define ( elem-val x )
+( cdr x ) )
+;;; leftist heaps ( after Okasaki )
+;; data representation
+( define leaf 'leaf )
+( define ( leaf ? h ) ( eq ? 'leaf h ) )
+( define ( hnode ? h )
+( and ( tagged-list ? 5 'hnode h )
+( natural ? ( caddr h ) ) ) )
+( define ( make-hnode elem heap-a heap-b )
+;;; XXX: fill in the implementation
+...)
+( define ( hnode-elem h )
+( second h ) )
+( define ( hnode-left h )
+( fourth h ) )
+( define ( hnode-right h )
+( fifth h ) )
+( define ( hnode-rank h )
+( third h ) )
+( define ( hord ? p h )
+(or ( leaf ? h )
+(<= p ( elem-priority ( hnode-elem h ) ) ) ) )
