@@ -1,0 +1,34 @@
+#lang racket
+
+(define (random-sleep)
+  (sleep (/ (random) 100)))
+
+(define (make-table)
+  (define forks (build-list 5 (lambda (_) (make-semaphore 1))))
+  (define (pick-fork k)
+    (random-sleep)
+    (semaphore-wait (car (drop forks k))))
+  (define (put-fork k)
+    (random-sleep)
+    (semaphore-post (car (drop forks k))))
+
+  (lambda (op)
+    (match op
+      ['pick-fork pick-fork]
+      ['put-fork put-fork])))
+
+(define (run-concurrent . thunks)
+  (define threads (map thread thunks))
+  (for-each thread-wait threads))
+
+(define (test2)
+  (define table (make-table))
+  (run-concurrent
+   (lambda() (philosopher table 0))
+   (lambda() (philosopher table 1))
+   (lambda() (philosopher table 2))
+   (lambda() (philosopher table 3))
+   (lambda() (philosopher table 4))))
+
+; test2 tysiąc razy.
+(let [(l (build-list 1000 (lambda (_) (test2))))] (void))
