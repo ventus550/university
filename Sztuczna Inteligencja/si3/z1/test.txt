@@ -1,0 +1,1 @@
+python validator.py zad1 python z1.py

@@ -1,0 +1,21 @@
+	def modifyCol(j):
+		mods = []
+
+		for i in range(height):
+			row = getRow(i).copy(); row[j] = not row[j]
+			col = getCol(j).copy(); col[i] = not col[i]
+
+			mods.append( (i, evaluate(ROWS[i], row), evaluate(COLS[j], col)) )
+		
+		mods.sort(key = lambda p: p[1] + p[2])
+		best = mods[0]
+		IMAGE[best[0]][j] = int(not IMAGE[best[0]][j])
+		#print("CHANGE:", i, j)
+		if best[1] == 0:
+			ILLEGAL_ROWS.remove(i)
+		else:
+			ILLEGAL_ROWS.add(i)
+		if best[2] == 0:
+			ILLEGAL_COLS.remove(j)
+		else:
+			ILLEGAL_COLS.add(j)

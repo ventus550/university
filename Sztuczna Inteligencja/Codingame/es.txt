@@ -1,0 +1,105 @@
+import sys
+import math
+from enum import Enum
+import random
+
+
+def origin(game):
+    
+    def input_trees():
+        number_of_trees = int(input())
+        return [ Tree(input()) for _ in range(number_of_trees) ]
+
+    def input_actions():
+        number_of_possible_actions = int(input())
+        return [ Action( input() ) for _ in range(number_of_possible_actions) ]
+    
+    game.day = int(input())
+    game.nutrients = int(input())
+    game.my_sun, game.my_score = [int(i) for i in input().split()]
+    game.opponent_sun, game.opponent_score, game.opponent_is_waiting = [int(i) for i in input().split()]
+
+    game.trees = input_trees()
+
+    game.possible_actions = input_actions()
+
+
+
+
+class Cell:
+    def __init__(self, cell_index, richness, neighbors):
+        self.cell_index = cell_index
+        self.richness = richness
+        self.neighbors = neighbors
+
+class Tree:
+    def __init__(self, inp):
+        inputs = inp.split(" ")
+        self.cell_index = int(inputs[0])
+        self.size = int(inputs[1])
+        self.is_mine = inputs[2] != "0"
+        self.is_dormant = inputs[3] != "0"
+
+        
+
+class ActionType(Enum):
+    WAIT = "WAIT"
+    SEED = "SEED"
+    GROW = "GROW"
+    COMPLETE = "COMPLETE"
+
+class Action:
+    def __init__(self, action_string):
+        split = action_string.split(' ')
+        self.target_cell_id = math.inf
+        if split[0] == ActionType.WAIT.name:
+            self.type = ActionType.WAIT
+        if split[0] == ActionType.COMPLETE.name:
+            self.type = ActionType.COMPLETE
+            self.target_cell_id = int(split[1])
+        if split[0] == ActionType.GROW.name:
+            self.type = ActionType.GROW
+            self.target_cell_id = int(split[1])
+    
+    def __gt__(self, other):
+        return self.target_cell_id > other.target_cell_id
+
+    def __str__(self):
+        if self.type == ActionType.WAIT:
+            return 'WAIT'
+        elif self.type == ActionType.SEED:
+            return f'SEED {self.origin_cell_id} {self.target_cell_id}'
+        else:
+            return f'{self.type.name} {self.target_cell_id}'
+
+class Game:
+    def __init__(self):
+        self.day = 0
+        self.nutrients = 0
+        self.board = []
+        self.trees = []
+        self.possible_actions = []
+        self.my_sun = 0
+        self.my_score = 0
+        self.opponent_sun = 0
+        self.opponent_score = 0
+        self.opponent_is_waiting = 0
+
+    def compute_next_action(self):
+        return self.possible_actions[0]
+
+
+number_of_cells = int(input())
+game = Game()
+for i in range(number_of_cells):
+    cell_index, richness, neigh_0, neigh_1, neigh_2, neigh_3, neigh_4, neigh_5 = [int(j) for j in input().split()]
+    game.board.append(Cell(cell_index, richness, [neigh_0, neigh_1, neigh_2, neigh_3, neigh_4, neigh_5]))
+
+
+
+while True:
+    origin(game)
+
+    mn = min(game.possible_actions)
+    game.possible_actions.remove(mn)
+    print(mn, mn)
