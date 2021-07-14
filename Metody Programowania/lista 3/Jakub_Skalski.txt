@@ -1,0 +1,465 @@
+Poniższy dowód powstał we współpracy z Krystianem Jasionkiem, Cezarym Świtałą,
+Bartoszem Janikowskim, Kubą Grabarczukiem i Piotrkiem Dobiechem.
+
+Wykorzystane definicje:
+
+(define (append list1 list2)
+    (if (null? list1)
+        list2
+        (cons (car list1)
+              (append (cdr list1)
+                      list2)))
+)
+(define (map proc items)
+    (if (null? items)
+        null
+        (cons (proc (car items))
+              (map proc (cdr items))))
+)
+(define (filter predicate sequence)
+    (cond ((null? sequence) null)
+        ((predicate (car sequence))
+            (cons (car sequence)
+                  (filter predicate (cdr sequence))))
+        (else (filter predicate (cdr sequence))))
+)
+
+Zakładamy, że (list? xs) i (list? ys) są prawdą.
+Niech "<=>" oznacza relcję równoważności.
+
+Dowód będzie miał charakter indukcyjny względem xs tj.
+jeśli P(null) zachodzi oraz dla każdego x, xs spełniona jest implikacja P(xs) => P((cons x xs)), wtedy
+dla dowolnego xs takiego, że (list? xs) zachodzi P(xs).
+
+1. Twierdzenie: P(xs): (map f (append xs ys)) <=> (append (map f xs) (map f ys))
+
+Baza indukcji:
+P(null): (map f (append null ys)) <=> (append (map f null) (map f ys))
+Niech L i R oznaczają odpowiednio lewą i prawą stronę równoważności.
+
+L: ------------
+;; z definicji append:
+(if (null? (map f null))
+	(map f ys)
+	(cons (car (map f null)) (append (cdr (map f null)) (map f ys))))
+
+;; z definicji map:
+(if (null? (if (null? null)
+                null
+                (cons (f (car null))
+                    (map f (cdr null))))
+                )
+        (map f ys)
+        (cons (car (map f null) )
+              (append (cdr (map f null) )
+                      (map f ys))))
+
+;; obliczam procedury if oraz null?
+(map f ys)
+
+
+R: -------------
+(append (map f null) (map f ys))
+;; z definicji append
+(if (null? (map f null) )
+        (map f ys)
+        (cons (car (map f null) )
+              (append (cdr (map f null) )
+                      (map f ys))))
+
+;; z definicji map
+(if (null? (if (null? null)
+                null
+                (cons (f (car null))
+                    (map f (cdr null))))
+                )
+        (map f ys)
+        (cons (car (map f null) )
+              (append (cdr (map f null) )
+                      (map f ys))))
+
+;; obliczam procedury if oraz null?
+(if (null? null)
+        (map f ys)
+        (cons (car (map f null) )
+              (append (cdr (map f null) )
+                      (map f ys))))
+
+            
+(map f ys)
+
+Widzimy, że L <=> R, więc baza działa.
+
+Krok Indukcyjny:
+
+Załóżmy, że P(xs). Pokażmy, że P((cons x xs)) tj.
+(map f (append (cons x xs) ys)) == (append (map f (cons x xs)) (map f ys))
+
+L: ----------
+(map f (append (cons x xs) ys))
+;; z definicji append
+(map f (if (null? (cons x xs))
+           ys
+           (cons (car (cons x xs))
+                 (append (cdr (cons x xs))
+                         ys))))
+
+;; obliczam procedury if oraz null?
+(map f  (cons (car (cons x xs))
+                 (append (cdr (cons x xs))
+                         ys)))
+
+;; obliczam procedury cdr oraz car
+(map f  (cons x (append xs ys)))
+
+;; z definicji map
+(if (null? (cons x (append xs ys)))
+    null
+    (cons (f (car (cons x (append xs ys))))
+          (map f (cdr (cons x (append xs ys))))))
+
+;; obliczam procedury if oraz null?
+(cons (f (car (cons x (append xs ys))))
+      (map f (cdr (cons x (append xs ys)))))
+
+;; obliczam procedury cdr oraz car
+(cons (f x) (map f (append xs ys)))
+
+R: ---------
+(append (map f (cons x xs)) (map f ys))
+
+;; z definicji append
+(if (null? (map f (cons x xs)))
+    (map f ys)
+    (cons (car (map f (cons x xs)))
+          (append (cdr (map f (cons x xs)))
+                  (map f ys))))
+
+;; Niech T = (map f (cons x xs)), wtedy:
+(if (null? T)
+    (map f ys)
+    (cons (car T)
+          (append (cdr T)
+                  (map f ys))))
+
+;; Rozpiszmy T: --------
+(map f (cons x xs))
+
+;; z definicji map
+(if (null? (cons x xs))
+    null
+    (cons (f (car (cons x xs)))
+          (map f (cdr (cons x xs)))))
+
+;; Obliczam if i null?
+(cons (f (car (cons x xs)))
+          (map f (cdr (cons x xs))))
+
+;; Obliczam cdr i car
+(cons (f x)(map f xs))
+
+
+;; Podstawiając (cons (f x)(map f xs) za T w R otrzymujemy:
+(if (null? (cons (f x) (map f xs)))
+    (map f ys)
+    (cons (car (cons (f x) (map f xs)))
+          (append (cdr (cons (f x) (map f xs)))
+                  (map f ys))))
+
+;; Obliczam if i null?
+(cons (car (cons (f x) (map f xs)))
+        (append (cdr (cons (f x) (map f xs)))
+                (map f ys)))
+
+;; Obliczam car i cdr
+(cons (f x) (append (map f xs) (map f ys)))
+
+
+Wracając do L <=> R mamy:
+(cons (f x) (map f (append xs ys))) == (cons (f x) (append (map f xs) (map f ys)))
+
+Korzystając z założenia indukcyjnego (map f (append xs ys)) <=> (append (map f xs) (map f ys)), widzimy, że P((cons x xs)) zachodzi
+zatem na mocy zasady indukcji zachodzi również P(xs).
+
+2. Twierdzenie: P(xs): (filter p? (append xs ys)) == (append (filter p? xs) (filter p? ys))
+
+Baza indukcji:
+P(null): (map f (append null ys)) <=> (append (map f null) (map f ys))
+Niech L i R oznaczają odpowiednio lewą i prawą stronę równoważności.
+
+L: ---------
+(filter p? (append null ys))
+
+;; z definicji append
+(filter p? 
+    (if (null? null)
+        ys
+        (cons (car null)
+              (append (cdr null ys)))))
+
+;; Obliczam if i null?
+(filter p? ys)
+
+P: ----------
+(append (filter p? null) (filter p? ys))
+
+;; z definicji append
+(if (null? (filter p? null))
+        (filter p? ys)
+        (cons (car (filter p? null))
+              (append (cdr (filter p? null))
+                      (filter p? ys))))
+;; z definicji filter
+(if (null? 
+        (cond 
+            ((null? null) null)
+            ((p? (car null))
+                (cons 
+                    (car null)
+                    (filter p? (cdr null))))
+            (else (filter p? (cdr null)))))
+
+        (filter p? ys)
+        (cons (car (filter p? null))
+              (append (cdr (filter p? null))
+                      (filter p? ys))))
+
+;; obliczam cond i null?
+(if (null? null)
+        (filter p? ys)
+        (cons (car (filter p? null))
+              (append (cdr (filter p? null))
+                      (filter p? ys))))
+== obliczam if i null?
+(filter p? ys)
+
+Widzimy, że L <=> R, więc baza działa.
+
+
+Krok indukcyjny:
+Niech Fx <=> (filter p? xs)
+Niech Fy <=> (filter p? ys)
+
+Załóżmy, że P(xs): (filter p? (append xs ys)) <=> (append Fx Fy)
+Pokażemy, że P((cons x xs)): (filter p? (append (cons x xs) ys)) <=> (append (filter p? (cons x xs)) Fy)
+
+
+L: ----------
+(filter p? (append (cons x xs) ys))
+
+;; z definicji append
+(filter p? (cons (car (cons x xs)) (append (cdr (cons x xs)) ys)))
+
+;; obliczam car i cdr
+(filter p? (cons x (append xs ys)))
+
+;; z definicji filter
+(cond
+	((null? (cons x (append xs ys))) null)
+	((p? x) (cons x (filter p? (append xs xy))))
+	(else (filter p? (append xs xy))))
+
+;; obliczam if i null?
+(cond
+	((p? x) (cons x (filter p? (append xs ys))))
+	(else (filter p? (append xs xy))))
+
+;; z założenia indukcyjnego
+(cond
+	((p? x) (cons x (append Fx Fy)))
+	(else (append Fx Fy))
+
+R: -----------
+(append (filter p? (cons x xs)) Fy)
+
+Niech T <=> (f p? (cons x xs))
+
+;; Obliczam T z definicji filter
+T: --------
+(cond
+	((null? (cons x xs)) null)
+	((p? x) (cons x (filter p? xs)))
+	(else (filter p? xs)))
+
+;; Obliczam null? i podstawiam Fx
+(cond
+	((p? x) (cons x Fx))
+	(else Fx))
+
+;; Podstawiam T w R
+(append T Fy)
+
+;;z definicji append
+(if (null? T)
+	Fy
+	(cons (car T)
+		(append (cdr T) Fy)))
+
+;; Pora rozważyć przypadki
+
+Przypadek 1: Zakładam, że (p? x), wtedy
+
+L <=> (cons x (append  Fx Fy))
+T <=> (cons x Fx)
+
+zatem
+
+R <=> (cons (car T) (append (cdr T) Fy))
+
+;;podstawiam za T i obliczam cdr i car
+R <=> (cons x (append Fx Fy)) <=> L
+Przypadek 1 spełniony.
+
+Przypadek 2: Zakładam, że (not (p? x)), wtedy
+
+L <=> (append Fx Fy)
+T <=> Fx
+
+;; podstawiam za T w R
+R <=> (if (null? Fx)
+	Fy
+	(cons (car Fx) (append (cdr Fx) Fy)))
+
+;; Potrzebne będą kolejne przypadki
+Przypadek 2.1: Zakładam, że (null? Fx), wtedy
+
+;; rozpisuję L z definicji append i obliczam if i null?
+L <=> Fy
+
+;; rozpisuję R i obliczam if i null?
+R <=> Fy
+
+L <=> R
+Przypadek 2.1 spełniony.
+
+
+Przypadek 2.2: Zakładam, że (not (null? Fx)), wtedy
+
+;; rozpisuję L z definicji append
+L <=> (if (null? Fx)
+	Fy
+	(cons (car Fx) (append (cdr Fx) Fy)))
+
+;; obliczam if i null?
+L <=> (cons (car Fx) (append (cdr Fx) Fy))
+
+;; obliczam if i null? dla R
+R <=> (cons (car Fx) (append (cdr Fx) Fy))
+
+Widzimy, że L <=> R
+Przypadek 2.2 spełniony.
+
+
+Wszystkie przypadki zachodzą zatem krok indukcyjny zachodzi, więc na mocy zasady indukcji P(xs) zachodzi dla dowolnego xs takiego, że (list? xs).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

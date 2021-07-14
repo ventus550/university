@@ -1,0 +1,5 @@
+#lang racket
+
+(define (select-min ls)
+  (define mn (min ls))
+  0)

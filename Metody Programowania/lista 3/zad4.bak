@@ -1,0 +1,8 @@
+#lang racket
+
+(define (insert xs n)
+  (let* iter ([i -1] [ls '()])
+    (if (= i (- (length xs) 1))
+        ls
+
+        (if 
