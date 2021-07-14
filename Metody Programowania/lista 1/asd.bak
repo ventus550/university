@@ -1,0 +1,3 @@
+#lang racket
+
+(define a 3)

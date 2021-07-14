@@ -1,0 +1,15 @@
+#lang racket
+(require 2htdp/image)
+
+
+(print "hey")
+
+
+(let loop ((i 10) (res '()))
+  (if (< i 0)
+      res
+      (loop (- i 1) (cons i res))))
+
+(cons 1 '())
+(list 1 2 3)
+(sqrt -1)
