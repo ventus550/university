@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <script type="text/javascript">
+        var map;
+        var directionsManager;
+		
+		function rand() {
+			return Math.random() - 0.5;
+		}
+
+        function GetMap()
+        {
+            var map = new Microsoft.Maps.Map('#myMap', {});
+
+            //Load the directions module.
+            Microsoft.Maps.loadModule('Microsoft.Maps.Directions', function () {
+                //Create an instance of the directions manager.
+                directionsManager = new Microsoft.Maps.Directions.DirectionsManager(map);
+
+                //Create waypoints to route between.
+				
+				var start = new Microsoft.Maps.Directions.Waypoint({ address: 'Me', location: new Microsoft.Maps.Location(52.5, 20) });
+                directionsManager.addWaypoint(start);
+				
+				
+				for(let i = 0; i < 3; i++) {
+					var random_point = new Microsoft.Maps.Directions.Waypoint({ address: 'Punkt ' + i,  location: new Microsoft.Maps.Location(52.5 + rand(), 20 + rand())});
+                	directionsManager.addWaypoint(random_point);
+				}
+                
+				
+				var end = new Microsoft.Maps.Directions.Waypoint({ address: 'Bielsk' });
+                directionsManager.addWaypoint(end);
+
+                
+
+                //Specify the element in which the itinerary will be rendered.
+                directionsManager.setRenderOptions({ itineraryContainer: '#directionsItinerary' });
+
+                //Calculate directions.
+                directionsManager.calculateDirections();
+            });
+        }
+    </script>
+    <script type="text/javascript" src='https://www.bing.com/api/maps/mapcontrol?callback=GetMap&key=AgH8wu4tQWpfCiu7nRYFPGZJizFwLjKfljuunwqGDKlTXRYSKY8aT_MVYWvtQRX4' async defer></script>
+    <style>        
+        .dirInstructions td, .dirInstructions th{
+            padding-top:0px !important;
+            padding-bottom:0px !important;
+        }
+
+        .dirSDK p{
+            margin-top:0px !important;
+            margin-bottom:0px !important;
+        }
+    </style>
+</head>
+<body>
+    <div id="myMap" style="position:relative;width:800px;height:600px;"></div>
+    <div id="directionsItinerary"></div> 
+</body>
+</html>
