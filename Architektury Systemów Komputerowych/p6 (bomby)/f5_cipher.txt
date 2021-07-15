@@ -1,0 +1,19 @@
+szyfr w fazie 5:
+z -> o
+x -> n
+c -> u
+v -> r
+b -> d
+n -> y
+a -> a
+d -> i
+f -> r
+g -> s
+h -> n
+j -> o
+e -> e
+i -> f
+k -> t
+l -> v
+m -> b
+o -> l
