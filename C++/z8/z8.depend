@@ -1,0 +1,9 @@
+# depslib dependency file v1.0
+1590686500 source:c:\users\ventu\onedrive\sync\cpp\z8\main.cpp
+	"definitions.cpp"
+	<iostream>
+	<conio.h>
+
+1590687918 c:\users\ventu\onedrive\sync\cpp\z8\definitions.cpp
+	<iostream>
+

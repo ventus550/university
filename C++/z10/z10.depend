@@ -1,0 +1,8 @@
+# depslib dependency file v1.0
+1591913898 source:c:\users\ventu\onedrive\sync\cpp\z10\main.cpp
+	<iostream>
+	<map>
+	<vector>
+	<typeinfo>
+	<cmath>
+
