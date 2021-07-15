@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1603152166 source:c:\users\ventu\desktop\anl2\2.7\main.cpp
+	<iostream>
+	<math.h>
+
