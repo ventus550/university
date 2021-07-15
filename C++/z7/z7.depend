@@ -1,0 +1,14 @@
+# depslib dependency file v1.0
+1588642893 source:c:\users\ventu\onedrive\sync\cpp\z7\main.cpp
+	"wymierne.cpp"
+
+1588642961 c:\users\ventu\onedrive\sync\cpp\z7\wymierne.cpp
+	<iostream>
+	<cmath>
+	<algorithm>
+	"wymierne.h"
+
+1588642760 c:\users\ventu\onedrive\sync\cpp\z7\wymierne.h
+	<vector>
+	<iostream>
+
