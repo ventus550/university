@@ -1,0 +1,5 @@
+s = x + y
+
+bool overflows(int32_t x, int32_t y){
+    return ((x + y ^ x)  & (x + y ^ y)) >> N - 1;
+}

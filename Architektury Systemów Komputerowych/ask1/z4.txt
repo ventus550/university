@@ -1,0 +1,9 @@
+volatile -- pomiędzy różnymi odczytami, wartości zmiennej mogą być różne, nawet jeśli nie były zmodyfikowane w kodzie.
+Zastosowanie volatile powstrzymuje kompilator optymalizujący przed pomijaniem zapisów do pamięci.
+Zmienne volatile pojawiają się przede wszystkim w dostępie do sprzętu, gdzie pamięć jest wykorzystywana do komunikacji pomiędzy urządzeniami oraz w środowisku wielowątkowym, w którym różne wątki mogą korzystać z tej samej zmiennej.
+
+static -- sprawia, że zmienna jest inicjalizowana tylko raz i zachowuje swoją wartość między róznymi wywołaniami funkcji, w której jest deklarowana.
+Statyczna zmienna globalna lub funkcja stają się widoczne tylko w jednym pliku, dlatego można używać kilku takich zmiennych i funkcji o tej samej nazwie w różnych plikach.
+
+restrict -- słowo kluczowe informujące kompilator, że dany wskaźnik jest jedynym sposobem na dostanie się do obiektu, na który wskazuje.
+Dysponując tą informacją kompilator może poczynić stosowne optymalizacje. Niezastosowanie się do tego ograniczenia przez programistę skutkuje działaniem niezdefiniowanym.

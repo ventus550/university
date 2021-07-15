@@ -1,0 +1,39 @@
+
+
+• (x > 0) || (x - 1 < 0)
+Uzasadnienie: widzimy, że jeśli wyrażenie ma być fałszem to x <= 0, wtedy jeśli x = INT32_MIN to x-1 overflowuje dając wartość dodatnią!
+Odp: INT32_MIN
+
+• (x & 7) != 7 || (x << 29 < 0)
+Uzasadnienie: widzimy, że jeśli wyrażenie ma być fałszem to trzy ostatnie bity x to jedynki. Po 29-krotnym shiftowaniu w lewo stoją one z przodu, przy czym pierwsza z nich koduje znak liczby.
+Odp: zawsze prawda
+
+• (x * x) >= 0
+Uzasadnienie: oczywiście, x^2 może spowodować overflow dla np. x ~ sqrt(int32_max)
+Odp: 0xB505 (generalnie wszystko co overflowuje na ujemny przedział)
+
+• x < 0 || -x <= 0
+Uzasadnienie: xD
+Odp: zawsze prawda
+
+• x > 0 || -x >= 0
+Uzasadnienie: jeśli x = int32_min, to -x overflowuje (bo ujemnych jest o jeden więcej niż dodatnich, więc nie da się zmieścić int32 dodatniego równego co do modułu int32_min
+Odp: int32_min
+
+• (x | -x) >> 31 == -1
+Uzasadnienie: >_>
+Odp: 0
+
+• x + y == (uint32_t)y + (uint32_t)x
+Uzasadnienie: unsigny zarażają inty covidem
+Odp: zawsze prawda
+
+• x * ~y + (uint32_t)y * (uint32_t)x == -x
+Dowodzik:
+x * (-y - 1) + (uint32_t)y * (uint32_t)x == -x //bo -y = ~y + 1
+x * (-y - 1) + (uint32_t)y * (uint32_t)x == -x
+-(x * y) - x + (uint32_t)y * (uint32_t)x == -x
+-x == -x
+Odp: zawsze prawda
+
+
