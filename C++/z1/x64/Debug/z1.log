@@ -1,0 +1,5 @@
+﻿  z1.cpp
+C:\Users\ventu\OneDrive\sync\cpp\z1\z1.cpp(44,25): warning C4244: '=': conversion from 'double' to 'int64_t', possible loss of data
+C:\Users\ventu\OneDrive\sync\cpp\z1\z1.cpp(48,25): warning C4244: '=': conversion from 'double' to 'int64_t', possible loss of data
+C:\Users\ventu\OneDrive\sync\cpp\z1\z1.cpp(103,23): warning C4244: 'initializing': conversion from '__int64' to 'int', possible loss of data
+  z1.vcxproj -> C:\Users\ventu\OneDrive\sync\cpp\z1\x64\Debug\z1.exe

@@ -1,0 +1,7 @@
+﻿  z1.cpp
+C:\Users\ventu\OneDrive\sync\cpp\z1\z1.cpp(19,16): warning C4244: 'initializing': conversion from 'double' to 'int64_t', possible loss of data
+C:\Users\ventu\OneDrive\sync\cpp\z1\z1.cpp(44,24): warning C4244: 'initializing': conversion from 'double' to 'int64_t', possible loss of data
+C:\Users\ventu\OneDrive\sync\cpp\z1\z1.cpp(52,23): warning C4018: '<': signed/unsigned mismatch
+C:\Users\ventu\OneDrive\sync\cpp\z1\z1.cpp(71,27): warning C4018: '<': signed/unsigned mismatch
+C:\Users\ventu\OneDrive\sync\cpp\z1\z1.cpp(95,23): warning C4244: 'initializing': conversion from '__int64' to 'int', possible loss of data
+  z1.vcxproj -> C:\Users\ventu\OneDrive\sync\cpp\z1\Debug\z1.exe

@@ -1,0 +1,8 @@
+﻿  z1.cpp
+C:\Users\ventu\OneDrive\sync\cpp\z1\z1.cpp(19,16): warning C4244: 'initializing': conversion from 'double' to 'int64_t', possible loss of data
+C:\Users\ventu\OneDrive\sync\cpp\z1\z1.cpp(44,24): warning C4244: 'initializing': conversion from 'double' to 'int64_t', possible loss of data
+  Generating code
+  Previous IPDB not found, fall back to full compilation.
+  All 170 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finished generating code
+  z1.vcxproj -> C:\Users\ventu\OneDrive\sync\cpp\z1\x64\Release\z1.exe

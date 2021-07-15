@@ -1,0 +1,8 @@
+# depslib dependency file v1.0
+1583433550 source:c:\users\ventu\onedrive\sync\cpp\z1_cbp\main.cpp
+	<iostream>
+	<vector>
+	<cmath>
+	<string>
+	<chrono>
+
