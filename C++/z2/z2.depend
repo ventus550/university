@@ -1,0 +1,14 @@
+# depslib dependency file v1.0
+1583876032 source:c:\users\ventu\onedrive\sync\cpp\z2\main.cpp
+	"definicje.cpp"
+
+1583761687 c:\users\ventu\onedrive\sync\cpp\z2\head.h
+
+1583876097 c:\users\ventu\onedrive\sync\cpp\z2\definicje.cpp
+	<iostream>
+	<stdlib.h>
+	<cmath>
+	<time.h>
+	<conio.h>
+	"head.h"
+
