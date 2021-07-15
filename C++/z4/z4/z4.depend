@@ -1,0 +1,14 @@
+# depslib dependency file v1.0
+1585693808 source:c:\users\ventu\onedrive\sync\cpp\z4\z4\main.cpp
+	"stos.cpp"
+	<conio.h>
+	<cstdlib>
+
+1585693921 c:\users\ventu\onedrive\sync\cpp\z4\z4\stos.cpp
+	<iostream>
+	<algorithm>
+	<utility>
+	"stos.h"
+
+1585685838 c:\users\ventu\onedrive\sync\cpp\z4\z4\stos.h
+

@@ -1,0 +1,12 @@
+# depslib dependency file v1.0
+1586461266 source:c:\users\ventu\onedrive\sync\cpp\z5\z5\main.cpp
+	"tb.cpp"
+	<conio.h>
+
+1586460230 c:\users\ventu\onedrive\sync\cpp\z5\z5\tb.hpp
+	<iostream>
+
+1586463228 c:\users\ventu\onedrive\sync\cpp\z5\z5\tb.cpp
+	<cmath>
+	"tb.hpp"
+
