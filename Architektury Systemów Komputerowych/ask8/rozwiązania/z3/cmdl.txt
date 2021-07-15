@@ -1,0 +1,19 @@
+
+1. -----------------------
+cd /usr/lib/x86_64-linux-gnu/
+
+ar t libc.a | wc -l # 1740
+
+cat libm.a
+
+libm grupuje on te dwa pliki:
+ar t libm-2.31.a | wc -l # 802
+ar t libmvec.a | wc -l # 128
+
+2. -----------------------
+gcc -Og lazy.c -o rozwiązania/z3/lazy-Og & gcc -Og -g lazy.c -o rozwiązania/z3/lazy-Og-g
+readelf -S lazy-Og > lazy-Og.txt & readelf -S lazy-Og-g > lazy-Og-g.txt
+diff --color lazy-Og.txt lazy-Og-g.txt
+
+3. -----------------------
+readelf -d /usr/bin/python3

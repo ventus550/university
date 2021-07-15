@@ -1,0 +1,16 @@
+
+mismatch-b.o:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+0000000000000000 <p2>:
+   0:	f3 0f 1e fa          	endbr64 
+   4:	48 83 ec 08          	sub    $0x8,%rsp
+   8:	0f be 15 00 00 00 00 	movsbl 0x0(%rip),%edx        # f <p2+0xf>
+   f:	be 00 00 00 00       	mov    $0x0,%esi
+  14:	bf 01 00 00 00       	mov    $0x1,%edi
+  19:	b8 00 00 00 00       	mov    $0x0,%eax
+  1e:	e8 00 00 00 00       	callq  23 <p2+0x23>
+  23:	48 83 c4 08          	add    $0x8,%rsp
+  27:	c3                   	retq   
