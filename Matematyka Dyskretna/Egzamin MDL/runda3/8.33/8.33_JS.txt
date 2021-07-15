@@ -1,0 +1,6 @@
+Eeee...
+No dobra, no to..
+Odpalamy BFS-a i chodzimy po wszystkich wierzchołkach.
+Dla każdego odwiedzonego wierzchołka liczymy jego stopień tj. sumujemy wagi na wszystkich jego krawędziach.
+Jeśli nieprawdą jest, że istnieją dokładnie 0 lub 2 wierzchołki o stopniu nieparzystym to nie ma (xD) drogi eulera,
+wpp. droga jest i da się przejść po wszystkich krawędziach wg. warunków zadania.

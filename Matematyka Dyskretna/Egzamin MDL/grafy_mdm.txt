@@ -1,0 +1,4 @@
+
+
+2k wierzchołków nieparzysty stopniu
+pokaż, że jego krawędzie można podzielić na k krawędziowo rozłącznych marszrut
