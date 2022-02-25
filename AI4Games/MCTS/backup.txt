@@ -1,0 +1,110 @@
+import { Board } from './board.mjs'
+
+
+let b = new Board()
+
+class SHOT {
+
+	constructor() {
+		this.TT = {"null" : ["value", "sims"]}
+	}
+
+	sum(arr1, arr2) {
+		return [arr1[0] + arr2[0], arr1[1] + arr2[1]]
+	}
+
+	node(parent, action) {
+		const state = parent.apply(action),
+			  self = this
+
+		Object.assign(state, {
+			action: action,
+			hash: self.hash(state)
+		})
+		return state
+	}
+
+	ksimulate(state, k = 1) {
+		let count = 0
+		while (k-- > 0)
+			count += state.eval()
+		return count
+	}
+
+	hash(board) {
+		let tokens = []
+		for (let sb of board.subboards)
+			tokens.push( String(sb.board) )
+
+		tokens.sort()
+		tokens.push(board.locked)
+		return String(tokens)
+	}
+
+	Q(state) {
+		const entry = this.TT[state.hash]
+		
+	}
+
+	synch(state, sims) {
+		let key = state.hash, entry = this.TT[key]
+		if (entry == undefined) this.TT[key] = [0, 0]
+
+		const value = this.ksimulate(state, sims)
+		this.TT[key] += value
+		this.TT[key] += sims
+	}
+
+	magicformula(budget, move_count) {
+		return Math.floor(budget / (move_count + Math.log2(move_count)))
+	}
+
+	action(state, K = 1000) {
+		let states = state.actions().map( a => this.node(state, a) )
+		const node_budget = states.map( s => s.sims ).reduce( (a, b) => a + b )
+		const Q = s => s.value / s.sims
+
+		function Q(state) {
+			const entry = this.lookup(state)
+
+		}
+		
+		let budget = K + node_budget
+
+		// SHOT loop
+		let kill = [], keep = states
+		while (keep.length > 1) {
+			console.log("KEEP COUNT = " + keep.length)
+			const unit = this.magicformula(budget, states.length)
+			budget -= states.length * unit
+			console.assert(budget >= 0, "OOPS")
+
+			for (let state of keep) {
+				// const sims = unit - state.sims
+				console.log("units: ", unit, "sims performed: ", state.sims)
+				console.log(this.TT)
+				state.value += this.ksimulate(state, unit)
+				state.sims += unit
+			}
+
+			// sequential halving
+			keep.sort( (a, b) => Q(a) < Q(b) ? 1 : -1 )
+			const half = Math.ceil(keep.length / 2)
+			kill = keep.splice(-half, half)
+
+			// store discarded nodes
+			for (let state of kill) {
+				let lookup = this.TT[this.hash(state)]
+				if (lookup == undefined)
+					lookup = [0, 0]
+				this.TT[this.hash(state)] = this.sum(lookup, [state.value, state.sims])
+			}
+		}
+		return keep.pop().action
+	}
+}
+
+let S = new SHOT()
+b.apply(S.action(b))
+b.str()
+console.log(S.TT)

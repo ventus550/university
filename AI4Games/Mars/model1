@@ -1,0 +1,32 @@
+    // model
+    function model5() {
+        const fitness = bounded_MSE,
+            init = full_random, // random > spread ??
+            selection = kbest, // roulette > kbest
+            crossover = continuous1, // there seems to be no difference between double offspring and sqrt
+            mutation = biased_uniform_multiple, // only a slight improvement
+            evaluator = standard_evaluator( (state : state, spot : [number, number]) => fitness(state,spot, 100, 300) ),
+            POPULATION_SIZE = 100, HORIZON = 300 // the larger the horizon the better?
+
+        
+        /*----- main ----- */
+        let POPULATION = init([], evaluator, POPULATION_SIZE, HORIZON)
+
+        function next_generation() {
+            POPULATION = selection(POPULATION, Math.sqrt(POPULATION_SIZE))
+            
+            const generation = []
+            for (let a of POPULATION)
+                for (let b of POPULATION) {
+                    const child = crossover(a, b, evaluator)
+                    generation.push( child )
+                    if (child[1] < best[1]) best = child
+                }
+
+            for (let i = 0; i < generation.length; i++) generation[i] = mutation(generation[i], 0.05)
+            
+            POPULATION = generation
+        }
+
+        return next_generation
+    }

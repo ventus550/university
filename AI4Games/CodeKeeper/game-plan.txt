@@ -1,0 +1,28 @@
+1. floyd-warshall (ścieżki biegnące przez pole widzenia potworów są droższe - *poziom zagrożenia)
+(zagrożenie dla potwora możnaby mierzyć wg. utraconego życia w pojedynku z nim)
+(wstępnie może to być po prostu suma, później można to załatwić uczeniem maszynowym?)
+
+
+2. algorytm walk zaimplementowany manualnie
+
+
+
+
+### planowany remont
+PLAN GRY:
+
+jeśli w pobliżu potwór i możemy walczyć:
+	algorytm walki
+
+w przeciwnym wypadku:
+	jeśli znany jest punkt końca gry:
+		jeśli mamy dużo hp:
+			algorytm eksploatacji
+		w przeciwnym wypadku:
+			kończymy grę
+	
+	jeśli jest czas i mamy dużo hp:
+		algorytm eksploatacji
+	w przeciwnym wypadku:
+		algorytm eksploracji
+	

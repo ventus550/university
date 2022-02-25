@@ -1,0 +1,371 @@
+
+
+/*-------- utils --------*/
+type vector = [number, number]
+type genotype = Array<number>
+
+function addv(v : vector, u : vector) : vector {
+	return [ v[0] + u[0], v[1] + u[1] ]
+}
+
+function randint(a : number, b : number) {
+	const n = b - a + 1
+	return ~~(Math.random() * n) + a
+}
+
+function choice(arr : any) {
+	 let n = arr.length
+	 return arr[randint(0, n-1)]
+}
+
+function bounds(val : number, low : number, high : number) {
+	const
+	ltest = Number(val < low),
+	htest = Number(val > high),
+	vtest = Number(ltest + htest == 0)
+
+	return ltest * low + htest * high + vtest * val
+}
+
+const cos = (x : number) => Math.cos((x + 90) * Math.PI/180),
+	  sin = (x : number) => Math.sin((x + 90) * Math.PI/180)
+
+
+
+/*-------- engine --------*/
+type state = [
+	// X, Y
+	number, number,
+	// HS, VS
+	number, number,
+	// fuel, angle, thrust
+	number, number, number
+]
+
+// constants and access codes
+const DEFAULT_STATE : state = [0,0,0,0,0,0,0],
+	  gravity_acceleration = -3.711,
+	  pos = 0, speed = 2,
+	  fuel = 4, angle = 5, thrust = 6
+
+function set(state : state, field : number, val : vector | number) {
+	if (typeof val == "number") {state[field] = val}
+	else if (field < 2) { state[0] = val[0]; state[1] = val[1] }
+	else { state[2] = val[0]; state[3] = val[1] }
+}
+
+function get(state : state, field : number) : vector | number {
+	if (field < 2) { return [state[0], state[1]] }
+	else if (field < 4) { return [state[2], state[3]] }
+	else { return state[field] }
+}
+
+
+function update(state : state, set_angle : number, set_thrust : number) {
+
+	const
+	ang = get(state, angle) as number,
+	thrst = get(state, thrust) as number,
+	fl = get(state, fuel) as number,
+	spd = get(state, speed) as vector,
+	position = get(state, pos) as vector
+
+	if (fl <= 0) set_thrust = -4
+
+	const
+	new_ang = bounds(ang + set_angle, -90.0, 90.0),
+	new_thrst = bounds(thrst + set_thrust, 0, 4),
+	arcAngle = -new_ang * Math.PI / 180.0,
+	acc = [Math.sin(arcAngle) * new_thrst, Math.cos(arcAngle) * new_thrst + gravity_acceleration] as vector,
+	new_spd = addv(spd, acc),
+	new_pos = addv(position, addv(new_spd, [-acc[0] * 0.5, -acc[1] * 0.5]))
+
+	set(state, pos, new_pos)
+	set(state, fuel, fl - new_thrst)
+	set(state, angle, new_ang)
+	set(state, thrust, new_thrst)
+	set(state, speed, new_spd)
+}
+
+
+function collision(a : number, b : number, A : number, B :number, x : number, y :number) {
+	const bounded = (x1 : number, p :number , x2 : number) => (x1 <= p && p <= x2) || (x1 >= p && p >= x2)
+	return (x - a)*(B - b) - (y - b)*(A - a) >= 0 && bounded(a, x, A)
+}
+
+
+
+class Engine {
+
+	surfaceX : Array<number>
+	surfaceY : Array<number>
+	surface  : Array<number>
+	spot  	 : Array<number>
+	origin   : state	 
+
+	constructor(surfaceN : Array<number>, spot : [number, number], origin : state = DEFAULT_STATE) {
+		this.surface = surfaceN
+		this.origin = origin
+		this.spot = spot
+		this.surfaceX = []; this.surfaceY = []
+		for (let i = 0; i < surfaceN.length; i++)
+			if (i % 2)
+				this.surfaceY.push(surfaceN[i])
+			else
+				this.surfaceX.push(surfaceN[i])
+	}
+
+	make_state() : state { return [...this.origin] }
+
+	succesful(state : state) {
+		const x = (get(state, pos) as vector)[0]
+
+		return Math.abs(get(state, speed)[0]) <= 20
+		&& Math.abs(get(state, speed)[1]) <= 40
+		&& Math.abs(get(state, angle) as number) == 0
+		&& this.spot[0] - 500 <= x
+		&& this.spot[0] + 500 >= x
+	}
+
+	terminal(state : state) {
+		const X = this.surfaceX, Y = this.surfaceY, n = X.length,
+			  [x, y] = get(state, pos) as vector
+
+		for (let i = 1; i < n; i++) {
+			const a = X[i-1], b = Y[i-1], // first point
+				  A = X[i],   B = Y[i]	  // second point
+			// run geometry test (który nie działa dla pionwych prostych btw)
+			if (collision(a, b, A, B, x, y)) return true
+		}
+		return false
+	}
+
+	update_state(state : state, angle : number, thrust : number) {
+		if (this.terminal(state)) return false
+		update(state, angle, thrust)
+		return true
+	}
+
+
+	*simulator(genotype : genotype) {
+		console.assert(genotype.length % 2 == 0, "corrupted genotype " + genotype.length)
+		const state = this.make_state()
+
+		for (let i = 0; i < genotype.length; i+=2)
+			if (this.update_state(state, genotype[i], genotype[i+1])) yield state
+			else break
+		yield state
+	}
+
+	trajectory(genotype : genotype) : [Array<number>, state] {
+		const res = [ ...get(this.origin, pos) as vector ]; 
+		let state : state
+		for (let s of this.simulator(genotype)) {
+			state = s
+			res.push( ...get(s, pos) as vector )
+		}
+
+		return [res, state]
+	}
+}
+
+
+
+// Genetics
+type agent = [genotype, number]
+type population = Array<agent>
+
+
+function bounded_MSE(state : state, spot : [number, number], angle_coeff = 100, speed_coeff = 100) { //hmmm...
+	const
+	sq = (x : number) => Math.pow(x, 2),
+	[x, y] = get(state, pos) as vector,
+	[sx, sy] = spot,
+	ang = Math.abs(get(state, angle) as number),
+	[hs, vs] = get(state, speed) as vector,
+	
+	dist = sq(Math.max(Math.abs(x - sx) - 490, 0)) + sq(y - sy),
+	bhs = Math.max(Math.abs(hs) - 20, 0),
+	bvs = Math.max(Math.abs(vs) - 40, 0)
+	
+	return dist + angle_coeff * sq(ang) + speed_coeff * (sq(bhs) + sq(bvs))
+}
+
+
+function kbest(population : population, k : number) {
+	population.sort( (a, b) => a[1] - b[1] )
+	population.length = Math.round(k)
+	return population
+}
+
+
+function directed_uniform_multiple(agent : agent, chance : number = 0.1) {
+    const genotype = agent[0]
+    for (let i = 0; i < genotype.length; i++)
+        if (Math.random() <= chance)
+        if (i % 2) genotype[i] = 1
+        else genotype[i] = choice([-15, 15])
+    return agent
+}
+
+
+class RHEA extends Engine {
+
+	POPULATION : population
+
+	constructor(surfaceN : Array<number>, spot : [number, number], origin : state) {
+		super(surfaceN, spot, origin)	
+		
+		const
+		POPULATION_SIZE = 500,
+		HORIZON = 200
+
+		this.POPULATION = []
+
+		while (this.POPULATION.length < POPULATION_SIZE) {
+			const genotype = []
+			for (let j = 0; j < HORIZON / 2; j++)
+				genotype.push( choice([-15, 0, 15]), 1 )
+			this.POPULATION.push([genotype, Infinity])
+		}
+		this.evaluate(this.POPULATION)
+	}
+
+	evaluator(genotype : genotype) {
+		let state : state
+		for (let s of this.simulator(genotype))
+			state = s
+
+		if(this.succesful(state)) return -get(state, fuel)
+		return bounded_MSE(state, SPOT)
+	}
+
+	evaluate(population : population) {
+		for (let p of population) p[1] = this.evaluator(p[0])
+	}
+
+	step() {
+		for(let a of this.POPULATION) { a[0].shift(); a[0].shift() }
+	}
+
+	best() {
+		let b = [[], Infinity]
+		for (let p of this.POPULATION)
+			if (p[1] < b[1]) b = p
+		return b as agent
+	}
+
+	crossover(a : agent, b : agent)  {
+        const
+		g = a[0], h = b[0],
+		n = g.length, split = Math.random()
+
+		const new_genotype = []
+		for (let i = 0; i < n; i++) {
+			new_genotype.push( Math.round(split*g[i] + (1 - split)*h[i]) )
+		}
+		return [new_genotype, Infinity]
+	}
+
+	next_generation() {
+		const
+		mutation = directed_uniform_multiple,
+		selection = kbest,
+		N = Math.sqrt(this.POPULATION.length)
+
+
+		const POPULATION = selection(this.POPULATION, N)
+		
+		const generation = []
+		for (let a of POPULATION)
+ 			for (let b of POPULATION)
+			 	if (a[1] != b[1]) generation.push( this.crossover(a, b) )
+		
+		while (generation.length < N) {
+			const genotype = []
+			for (let j = 0; j < 200; j++)
+				genotype.push( choice([-15, 0, 15]), 1 )
+			generation.push([genotype, Infinity])
+		}
+		
+		for (let i = 0; i < generation.length; i++) generation[i] = mutation(generation[i], 0.2)
+		this.evaluate(generation)
+		return POPULATION.concat(generation)
+	}
+
+	run() {
+		const START = new Date().getTime()
+		while(new Date().getTime() - START < 90) {			
+			this.POPULATION = this.next_generation()
+		}
+
+		this.evaluate(this.POPULATION)
+		const a = this.best()
+		let action = [0, 0]
+		
+		if (a[0].length) {
+			action = [a[0][0], a[0][1]]
+			this.step()
+		}
+
+		this.update_state(this.origin, action[0], action[1])
+		this.evaluate(this.POPULATION)
+		return [get(this.origin, angle), get(this.origin, thrust)]
+	}
+}
+
+// -------------- CG -------------------
+const
+N: number = parseInt(readline()), // the number of points used to draw the surface of Mars.
+SURFACE = [],
+SPOT = [4750, 150] as [number, number]
+for (let i = 0; i < N; i++) {
+    var inputs: string[] = readline().split(' ');
+    const landX: number = parseInt(inputs[0]); // X coordinate of a surface point. (0 to 6999)
+    const landY: number = parseInt(inputs[1]); // Y coordinate of a surface point. By linking all the points together in a sequential fashion, you form the surface of Mars.
+
+    if (landY == SURFACE[SURFACE.length - 1]) {
+        SPOT[1] = landY
+        SPOT[0] = (landX + SURFACE[SURFACE.length - 2]) / 2
+    }
+    SURFACE.push( landX, landY )
+}
+function read() {
+    var inputs: string[] = readline().split(' ');
+    const X: number = parseInt(inputs[0]);
+    const Y: number = parseInt(inputs[1]);
+    const HS: number = parseInt(inputs[2]); // the horizontal speed (in m/s), can be negative.
+    const VS: number = parseInt(inputs[3]); // the vertical speed (in m/s), can be negative.
+    const F: number = parseInt(inputs[4]); // the quantity of remaining fuel in liters.
+    const R: number = parseInt(inputs[5]); // the rotation angle in degrees (-90 to 90).
+    const P: number = parseInt(inputs[6]); // the thrust power (0 to 4).
+    return [X, Y, HS, VS,F, R, P] as state
+}
+
+
+
+
+
+
+// game loop
+let
+LIVE_STATE : state = null,
+rhea : RHEA = null,
+best : agent = [[], Infinity]
+
+while (true) {
+
+    // formalities
+    if (LIVE_STATE == null) {
+        // if first turn
+        LIVE_STATE = read()
+        rhea = new RHEA(SURFACE, SPOT, LIVE_STATE)
+    }
+    else read()
+
+    const [rotation, power] = rhea.run()
+
+    //R P. R is the desired rotation angle. P is the desired thrust power.
+    console.log( rotation + " " + power);
+}
+

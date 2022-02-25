@@ -1,0 +1,175 @@
+import {Engine, state, genotype, get, fuel, randint} from "./engine.js";
+import {CanvasScreen} from "./screen.js"
+import * as genetics from "./genetics.js"
+import {population, agent} from "./genetics.js"
+
+const /* level specific stuff */
+//surface1 = [0, 100, 1000, 500, 1500, 100, 3000, 100, 5000, 1500, 6999, 1000],
+//spot1 = [1500, 3000],
+easy_right_surface = [0, 100, 1000, 500, 1500, 1500, 3000, 1000, 4000, 150, 5500, 150, 6999, 800],
+easy_right_spot = [4750, 150],
+easy_right_origin = [2500, 2700, 0, 0, 550, 0, 0] as state
+
+// highground_surface = [
+// 	0, 1000, 300, 1500, 350, 1400, 500, 2100, 1500, 2100,
+// 	2000, 200, 2500, 500, 2900, 300, 3000, 200, 3200, 1000,
+// 	3500, 500, 3800, 800, 4000, 200, 4200, 800, 4800, 600,
+// 	5000, 1200, 5500, 900, 6000, 500, 6500, 300, 6999, 500
+// ],
+// highground_spot = [1500, 2100],
+// highground_origin = [6500, 2700, -50, 0, 1000, 90, 0] as state
+
+class RHEA extends Engine {
+
+	POPULATION : population
+
+	constructor(surfaceN : Array<number>, spot : [number, number], origin : state) {
+		super(surfaceN, spot, origin)	
+		
+		const
+		POPULATION_SIZE = 500,
+		HORIZON = 200
+
+		this.POPULATION = []
+		while (this.POPULATION.length < POPULATION_SIZE) {
+			const genotype = []
+			for (let j = 0; j < HORIZON / 2; j++)
+				genotype.push( randint(-15, 15), randint(-1,1) )
+			this.POPULATION.push([genotype, Infinity])
+		}
+		this.evaluate(this.POPULATION)
+	}
+
+	evaluator(genotype : genotype) {
+		let state : state
+		for (let s of this.simulator(genotype))
+			state = s
+
+		if(this.succesful(state)) return -get(state, fuel)
+		return genetics.fitness_function.kamilfit(state, SPOT)
+	}
+
+	evaluate(population : population) {
+		for (let p of population) p[1] = this.evaluator(p[0])
+	}
+
+	step() {
+		for(let a of this.POPULATION) { a[0].shift(); a[0].shift() }
+	}
+
+	best() {
+		let b = [[], Infinity]
+		for (let p of this.POPULATION)
+			if (p[1] < b[1]) b = p
+		return b as agent
+	}
+
+	crossover(a : agent, b : agent)  {
+		const
+		g = a[0], h = b[0],
+		n = g.length, split = Math.random()
+
+		const new_genotype = [], new_genotype2 = []
+		for (let i = 0; i < n; i++) {
+			new_genotype.push( Math.round(split*g[i] + (1 - split)*h[i]) )
+			new_genotype2.push( Math.round(split*h[i] + (1 - split)*g[i]) )
+		}
+		return [[new_genotype, Infinity], [new_genotype2, Infinity]]
+	}
+
+	next_generation() {
+		const
+		//crossover = genetics.crossover.continuous2,
+		mutation = genetics.mutation.uniform_multiple,
+		selection = genetics.selection.kbest
+
+
+		const POPULATION = selection(this.POPULATION, this.POPULATION.length * 0.5)
+		
+		const generation = []
+		for(let i = 1; i < POPULATION.length; i+=2) {
+			const
+			parent1 = POPULATION[i],
+			parent2 = POPULATION[i-1]
+
+			generation.push( ...this.crossover(parent1, parent2) )
+		}
+		for (let i = 0; i < generation.length; i++) generation[i] = mutation(generation[i], 0.01)
+		this.evaluate(generation)
+		return POPULATION.concat(generation)
+	}
+
+	draw_population(population : population) {
+		const
+		worst = 300,
+		states = []
+	
+		let
+		mean = 0,
+		min = Infinity
+	
+		for (let agent of population) {
+			const
+			[trj, state] = this.trajectory(agent[0]),
+			density = genetics.fitness_function.speed(state)/worst
+			states.push(state)
+			if (population.length == 1) console.log("asd", this.evaluator(agent[0]), this.succesful(state))
+			
+
+			let color = `rgb(${255 * density}, ${255 * (1 - density)}, 0)`
+			if (this.succesful(state)) {SCREEN.polyline(trj, 'teal', 3);} // console.log(JSON.stringify(agent[0])); alert()}
+			else SCREEN.polyline(trj, color)
+	
+			mean += agent[1]
+			min = Math.min(min, agent[1])
+		}
+		//console.log(mean, min)
+	}
+
+	run() {
+		const START = performance.now()
+		while(performance.now() - START < 90) {
+
+			// canvas stuff
+			SCREEN.clear(1)
+			this.draw_population(this.POPULATION)
+			
+			this.POPULATION = this.next_generation()
+		}
+
+		this.evaluate(this.POPULATION)
+		const a = this.best()
+		let action = [0, 0]
+
+		// const [trj, state] = this.trajectory(a[0])
+		// console.error(a[1], this.evaluator(a[0]), this.succesful(state))
+
+		SCREEN.clear(0.8)
+		this.draw_population([a])
+		
+		if (a[0].length) {
+			action = [a[0][0], a[0][1]]
+			this.step()
+		}
+
+		this.update_state(this.origin, action[0], action[1])
+		this.evaluate(this.POPULATION)
+		return action
+	}
+}
+
+const
+SURFACE = easy_right_surface,
+SPOT = easy_right_spot as [number, number],
+ORIGIN = easy_right_origin,
+rhea = new RHEA(SURFACE, SPOT, ORIGIN),
+SCREEN = new CanvasScreen(rhea)
+
+// function popstring(population : population) {
+// 	for(let p of population) {
+// 		console.log(p[1], rhea.evaluator(p[0]))
+// 	}
+// }
+
+const wind = window as any
+wind.play = () => { setInterval( () => rhea.run() , 500) }
