@@ -1,0 +1,3 @@
+typeof jest używany do rozróżniania typów prymitywnych tj. String, Boolean, Number, Object
+instanceof rozróżnia obiekty tj, Array, Object
+wyjątkiem jest "null", dla którego typeof zwraca "object"..

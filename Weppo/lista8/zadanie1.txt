@@ -1,0 +1,51 @@
+
+## Wybór typów (https://www.postgresql.org/docs/9.5/datatype.html)
+imiona i nazwiska - raczej nie przekroczą długością stu znaków, wybieramy varchar(100)
+płeć - niech będzie binarna, czyli bit(1)
+wiek - smallint
+
+
+## Wariant 1
+
+	CREATE TABLE OSOBA (
+		ID INT PRIMARY KEY NOT NULL,
+		name varchar(100) NULL,
+		surname varchar(100) NULL,
+		sex bit(1) NULL,
+		age smallint NULL);
+
+
+	CREATE SEQUENCE inc
+	INCREMENT 1
+	START 1;
+
+
+	INSERT INTO OSOBA
+		(id, name, surname, sex, age)
+	VALUES
+		(nextval('inc'), 'Jakub', 'Skalski', '0', 22),
+		(nextval('inc'), 'Alicja', 'Jagoda', '1', 21);
+
+	
+	SELECT * FROM OSOBA;
+	
+
+
+## Wariant 2
+
+	CREATE TABLE OSOBA (
+		ID SERIAL PRIMARY KEY,
+		name varchar(100) NULL,
+		surname varchar(100) NULL,
+		sex bit(1) NULL,
+		age smallint NULL);
+
+
+	INSERT INTO OSOBA
+		(name, surname, sex, age)
+	VALUES
+		('Jakub', 'Skalski', '0', 22),
+		('Alicja', 'Jagoda', '1', 21);
+	
+
+	SELECT * FROM OSOBA;

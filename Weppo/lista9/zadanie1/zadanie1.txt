@@ -1,0 +1,1 @@
+Jak widać diagram pojęciowy modeluje konceptualną stronę rzeczywistości, skupiamy się na relacjach między abstrakcyjnymi pojęciami. W diagramach klasowych interesują nas już pewne aspekty implementacyjne.
