@@ -1,0 +1,1 @@
+add_executable(7cd main.cpp)
