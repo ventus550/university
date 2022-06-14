@@ -1,0 +1,2 @@
+num of words: 1000
+num of letters: 5170
