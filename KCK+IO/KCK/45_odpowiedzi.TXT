@@ -1,0 +1,340 @@
+.
+.
+
+
+
+
+
+
+                   EGZAMIN Z KOMUNIKACJI CZŁOWIEK-KOMPUTER
+
+               Instytut Informatyki Uniwersytetu Wrocławskiego
+
+                             Wrocław, 2021-02-05 
+
+
+
+
+Imię i nazwisko: Jakub Skalski
+
+  Numer indeksu: 314007
+
+
+
+Uwagi. Do oznaczenia cudzysłowu użyto w tekście celowo znaków ,, ".
+Kursywę zaznaczono jak w TeX-u: {\it ...}. Pisząc odpowiedzi, dodaj
+interlinię po treści każdego zadania. Nie musisz się ograniczać co do
+liczby wierszy, choć zwięzłość i trafność jest pożądana. Jeśli możesz,
+używaj jako symbolu końca wiersza pary znaków CR-LF. Żeby zdać egzamin,
+nie trzeba udzielić wszystkich odpowiedzi. Graj uczciwie.
+
+----------------------------------------------------------------------
+  1. Wyjaśnij efekt Adelsona cienia na szachownicy. Jak można
+ go przezwyciężyć w widzeniu?
+
+Iluzoryczny cień pada na szachownicę pokrywając jedno z jej pól, 
+przez co wydaje nam się jakby to pole było innego koloru niż jest naprawdę.
+Zasłaniając lewą i prawą stronę szachownicy złudzenie ustępuje.
+
+----------------------------------------------------------------------
+  2. Podaj przykład zastosowania okna dialogowego.
+
+Okna dialogowe są używane w celach pozyskania danych od użytkownika.
+Na przykład okno proszące o potwierdzenie wylogowania z systemu.
+
+
+----------------------------------------------------------------------
+  3. Wymień dwa z czterech podstawowych zastosowań modeli
+ użyteczności. Jeśli znajdujesz inne zastosowania prócz tych
+ czterech, to też je podaj?
+
+Modele użyteczności stosowane są do kontrolowania i oceniania użyteczności
+podczas opracowywania interfejsu użytkownika.
+Są szczególnie przydatne w dokonywaniu krytycznej analizy wyrobu ostatecznego.
+
+----------------------------------------------------------------------
+  4. Który z artykułów lub którą z książek polecanych w zbiorze zadań
+ semestralnych pamiętasz najlepiej? Jakiś zapamiętany szczegół? Jaki?
+
+Szczególnie zapadł mi w pamięć artykuł George'a Millera.
+Zaskoczyło mnie jak bardzo sposób reprezentacji informacji potrafi wpłynąć
+na naszą zdolność do jej zapamiętania.
+
+----------------------------------------------------------------------
+  5. Jeśli znasz jakieś rozwiązanie interfejsowe przeznaczone dla
+ użytkowników o dużych ograniczeniach, przedstaw je pokrótce.
+
+Tryb kontrastowy — wprowadzony dla użytkowników o ograniczeniach związanych z rozróżnianiem barw.
+
+----------------------------------------------------------------------
+  6. Określ i uzasadnij optymalną szerokość wiersza tekstu.
+
+Fizjologia ludzkiego oka pozwala nam na objęcie około 10 wyrazów.
+Z tego powodu staramy się, aby kolumny tekstu były właśnie tej szerokości.
+Ułatwia to czytanie i minimalizuje zmęczenie oka.
+
+----------------------------------------------------------------------
+  7. Co to jest ikona w GUI? Jakie powinna mieć cechy?
+
+Ikona może reprezentować skrót, plik, katalog, program, narzędzie i każdy
+inny obiekt, z którym użytkownik wchodzi w interakcję. Rozmiary od 16x16 do 128x128.
+Ikona powinna być rozpoznawalna, czytelna, prosta i odróżnialna od innych.
+
+----------------------------------------------------------------------
+  8. Zaproponuj własny model użyteczności.
+
+
+----------------------------------------------------------------------
+  9. Odnieś się do ,,równania": różne tryby + zadania automatyczne =
+ błędy, gdzie ,,=" oznacza możliwość.
+
+Ludzie wyrabiają sobie nawyki.
+Robiąc jakieś zadanie automatycznie, nie zwracamy uwagi na tryb,
+a to może prowadzić do błędów.
+
+----------------------------------------------------------------------
+ 10. Przedstaw konwencjonalne pojmowanie trzech podstawowych barw
+ w zastosowaniu do znaków i sygnałów drogowych.
+
+Kolory czerwony, niebieski, żółty i zielony oznaczają odpowiednio: zakaz, informację,
+ostrzeżenie i pozwolenie.
+
+----------------------------------------------------------------------
+ 11. ,,As the saying goes, type is a beautiful group of letters, not
+ a group of beautiful letters" [Matthew Carter]. Skomentuj tę myśl.
+
+
+----------------------------------------------------------------------
+ 12. Dlaczego warto zaczynać projektowanie witryny sieciowej
+ ,,od środka"? Co to znaczy?
+Projekt strony zaczynamy od szablonu wewnętrznego. Dobieramy barwy,
+ustalamy nawigację i wzorzec strony.
+
+----------------------------------------------------------------------
+ 13. Wskaż podstawowe zagadnienia organizacji nawigacji.
+
+
+----------------------------------------------------------------------
+ 14. Co się rozumie przez UCD (ang. {\it user-centered design})?
+
+Proces projektowania jest skupiony na potrzebach i wymaganiach użytkownika końcowego.
+
+----------------------------------------------------------------------
+ 15. Wskaż i omów metafory zastosowane w typowych aplikacjach
+ komputerowych (arkuszach kalkulacyjnych, edytorach, bazach danych,
+ wyszukiwarkach, witrynach sieciowych itp.).
+
+Często upodabniamy wirtualny interfejs do jego intuicyjnych odpowiedników świata rzeczywistego.
+Tym sposobem użytkownik łatwiej odnajduje się w interakcji z danym systemem.	
+Arkusz kalkulacyjny przyjmuje postać tabeli, witryna sieciowa jest metaforą gazety itp.
+
+----------------------------------------------------------------------
+ 16. Czy istnieje podzielność uwagi? Jeśli tak, to co ją warunkuje?
+
+Potrafimy wykonywać równolegle wiele czynności, ale tylko jedna z nich może nie być automatyczna
+(nasza uwaga może być skupiona tylko na jednym angażującym myślowo zadaniu).
+
+
+
+----------------------------------------------------------------------
+ 17. Nazwij ,,aktorów" biorących udział w teście użyteczności.
+
+Osoby testujące
+
+----------------------------------------------------------------------
+ 18. Co w praktyce użytkowania interfejsów oznacza termin
+ ,,intuicyjny"?
+
+To znaczy, że potrafimy dostrzec podobieństwa między danym interfejsem a 
+rzeczami, z którymi jesteśmy już obeznani.
+Użytkownicy zastosowane wzorce będą rozpoznawalne, a relacje między
+elementami zrozumiałe.
+
+----------------------------------------------------------------------
+ 19. Czym jest egzamin pisemny w świetle zdobyczy współczesnej
+ neurofizjologii?
+
+Sprawdzianem funkcjonowania studenta w obliczu stresującej sytuacji :)
+
+
+----------------------------------------------------------------------
+ 20. Zdefiniuj rodzaje pamięci człowieka.
+
+Sensoryczna — pamięć zmysłów.
+Krótkotrwała — przechowuje czasowo informacje, ograniczona do
+7 (+-2) porcji danych.
+Robocza — pomaga pamięci krótkotrwałej, tu mózg wykonuje więcej przetwarzania informacji,
+tworzy modele mentalne.
+Długotrwała — pozyskuje dane z pamięci krótkotrwałej i przechowuje je.
+
+----------------------------------------------------------------------
+ 21. Opisz proces oceny heurystycznej. Ile problemów wykrywa
+ statystycznie jeden oceniający (dopuszczalny błąd 5)? Co jest
+ szybsze: ocena heurystyczna czy testy z użytkownikami? Co jest
+ dokładniejsze?
+
+
+
+
+----------------------------------------------------------------------
+ 22. Co to jest interfejs? Zestaw i porównaj kilka definicji
+ interfejsu.
+
+Interfejs jako warstwa oddzielająca dwa ciała, coś pośredniczącego (np. w interakcji człowieka z narzędziem), łącznik.
+
+----------------------------------------------------------------------
+ 23. ,,Information consists of differences that make a difference".
+ Jak rozumiesz tę sentencję Edwarda Tufte'a?
+
+
+----------------------------------------------------------------------
+ 24. Czym różni się pasek stanu (ang. {\it status bar}) od paska
+ postępu (ang. {\it progress bar})?
+
+Pasek stanu wyświetla informacje odnośnie aktualnych zadań, parametrów i trybu systemu.
+Pasek postepu jest zwyczajnie wizualizacją przebiegu realizacji danego zadania.
+
+----------------------------------------------------------------------
+ 25. Który z wykładów studenckich z edycji 2020-21 uważasz za
+ najbardziej wartościowy? Dlaczego? A wybierając ze wszystkich
+ dotychczasowych wykładów studenckich?
+
+----------------------------------------------------------------------
+ 26. Wymień (i podaj intuicyjne wyjaśnienie) przynajmniej 10
+ z ponad osiemdziesięciu wzorców projektowych wyliczonych na
+ planszach wykładowych; albo je wymyśl na nowo i opisz.
+
+Zakładki — podział treści na kategorie, oszczędność przestrzenii.
+Menu — intuicyjny w nawigacji panel dostępu do odpowiednich podstron.
+Listy rozwijane — podejście minimalistyczne do menu lub wyboru.
+Przeciąganie i upuszczanie — intuicyjne interfejs rozstawiania obiektów.
+Galeria — łatwy przegląd obrazów.
+Przybliżanie — możliwość przybliżenia na obszar danego elementu interfejsu.
+Wyszukiwanie — przyspieszone znajdowanie treści.
+Sortowanie — wspomaganie wyszukiwania.
+Naprzemienne kolorowanie wierszy tabeli — zapobiega przykrym pomyłkom...
+Powiadomienia — informowanie użytkowanika na bierząco o zmianach w systemie.
+
+----------------------------------------------------------------------
+ 27. Podaj przynajmniej 13 haseł kojarzących się z GUI.
+
+color, combo box, dialog box, display, keyboard, icons, radio buttons,
+window, tooltip, testing, usability, user's visual, list boc, navigation
+
+----------------------------------------------------------------------
+ 28. Na czym polega projektowanie minimalistyczne? Podaj trzy z ośmiu
+ zasad przedstawionych na wykładzie.
+
+Płaskie okna, dużo wolnej przestrzenii, tylko nieliczne (ale wyjątkowo ważne!) przyciski,
+wąska paleta kolorów (około 3).
+
+----------------------------------------------------------------------
+ 29. ,,Żeby kapitalistyczny, oparty na ciągłym wzroście konsumpcji
+ system mógł się rozwijać, potrzebuje jak najwięcej nieszczęśliwych
+ ludzi, którzy, nie mogąc zaspokoić swoich prawdziwych potrzeb,
+ szukają substytutów. [...] słabymi i nieszczęśliwymi ludźmi można
+ łatwo manipulować". [Gerald Huenther]. Skomentuj tę wypowiedź.
+
+
+----------------------------------------------------------------------
+ 30. Sformułuj pięć wybranych zaleceń dotyczących etykietowania.
+
+Etykiety powinny:
+— być zwięzłe w treści, krótkie
+— być bogate znaczeniowo
+— dobrze informować dokąd prowadzą (w wypadku odsyłaczy)
+— przekazywać informacje możliwie jednoznacznie
+— nie powinny pokrywać się znaczeniowo z innymi etykietami w podobnym obszarze strony
+
+----------------------------------------------------------------------
+ 31. Rozwiń zdanie: ,,Prototyp poprzedza wyrób...".
+
+...a czasami na nim się kończy.
+
+----------------------------------------------------------------------
+ 32. Co to jest ergonomia? Czym się różni od kognitywistyki.
+
+Ergonomia to dyscyplina naukowa zajmująca się przystosowaniem narzędzi pracy
+do anatomicznych możliwości i potrzeb człowieka.
+Przeważnie zdaża się jej czerpać pomysły rozwiązań z kognitywistyki, która
+zajmuje się obserwacją i analizą działania umysłu.
+
+----------------------------------------------------------------------
+ 33. ,,The single biggest problem in communication is the illusion
+ that it has taken place". [George Bernard Shaw]. Skomentuj tę myśl.
+
+Komunikacja bywa zwodnicza — nie zawsze (nigdy?) możemy mieć pewność, że udało
+nam się przekazać zamierzone informacje.
+Co więcej nigdy nie wiemy czy zostały one zinterpretowane według naszego zamysłu.
+
+----------------------------------------------------------------------
+ 34. Co umożliwia Ci widzenie nocą: czopki czy pręciki? Gdzie są
+ rozmieszczone pręciki: na obrzeżu czy w centrum siatkówki? Czego
+ masz więcej w oku: czopków czy pręcików? Które receptory są szybsze:
+ czopki czy pręciki? Które mają większą czułość?
+
+Pręciki umożliwiają widzenie nocą, są rozmieszczone na obrzeżach siatkoówki.
+Pręcików jest więcej, poza tym pręciki są 100 razy bardziej czułe na światło,
+ale to czopki mają szybszą reakcje.
+
+
+----------------------------------------------------------------------
+ 35. Nakreśl zwięźle sposób wykonywania analizy potrzeb użytkownika.
+
+Staramy się poznać sylwetkę użytkownika końcowego i wyciągamy wnioski na podstawie
+informacji kim jest, czego mu trzeba.
+
+----------------------------------------------------------------------
+ 36. Todd Zaki Warfel w książce ,,Prototyping. A Practitioner's Guide"
+ podaje statystykę popularności prototypów. Ile procent zajmują w niej
+ prototypy papierowe? Możesz się pomylić o 8 procent.
+
+80%
+
+
+----------------------------------------------------------------------
+ 37. Co to jest koło barw? Do czego służy?
+
+Model poglądowy służący do objaśniania zasad mieszania się i powstawania barw.
+
+----------------------------------------------------------------------
+ 38. Dwa z tematów dorocznej konferencji Human System Interaction
+ noszą tytuły: {\it Extreme Interfaces} i {\it Wearable Network and
+ System}. O co chodzi?
+
+
+
+
+----------------------------------------------------------------------
+ 39. Czym jest rzetelna obserwacja? Ile warte jest zeznania naocznego
+ świadka (nie uogólniając)?
+
+Rzetelna obserwacja bierze pod uwagę wszystkie aspekty obserwowanego zjawiska i
+analizuje je pod wszystkimi możliwymi kątami.
+Zeznania naocznego świadka są kluczowe w opracowaniu na przykład dobrego interfejsu,
+możemy z nich wywnioskować co należy dodać lub zmienić itd.
+
+----------------------------------------------------------------------
+ 40. Czy złożenie tytułu ,,Odyseja" krojem Comic Sans jest dobrym
+ wyborem? Dlaczego?
+
+Krój przypomina pismo ręczne, zatem dobrze oddaje starożytną i legendarną naturę eposu.
+
+----------------------------------------------------------------------
+ 41. Co to jest diagramowanie podobieństw (ang. {\it affinity
+ diagramming})?
+
+Diagram, w którym podobne pomysły są łączone krawędziami tworząc grupy podobieństwa.
+
+
+----------------------------------------------------------------------
+ 42. Podaj konwencje stosowane w polach wyborów wielokrotnych
+ i wyborów wykluczających.
+
+
+
+
+21-02-05, zpl-IIUWr
+.
+.
+
