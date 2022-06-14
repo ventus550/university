@@ -1,0 +1,11 @@
+# depslib dependency file v1.0
+1587477303 source:c:\users\ventu\onedrive\sync\minic\lista3\z1\main.c
+	<stdio.h>
+	<stdlib.h>
+	"vector.c"
+
+1587476290 c:\users\ventu\onedrive\sync\minic\lista3\z1\vector.h
+
+1587476949 c:\users\ventu\onedrive\sync\minic\lista3\z1\vector.c
+	"vector.h"
+

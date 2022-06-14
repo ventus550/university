@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1583598165 source:c:\users\ventu\onedrive\sync\minic\lista1\z2\main.c
+	<stdio.h>
+	<stdlib.h>
+	<conio.h>
+
