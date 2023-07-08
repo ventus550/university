@@ -1,0 +1,28 @@
+Script started on 2021-11-09 13:21:28+01:00 [TERM="xterm-256color" TTY="/dev/pts/0" COLUMNS="102" LINES="57"]
+]7;file://fedora/home/ventus/OneDrive/Documents/uwr/SO/lista5/z4\]2;ventus@fedora:~/OneDrive/Documents/uwr/SO/lista5/z4]1;../SO/lista5/z4[0m[27m[24m[J[01;36m☁ [01;32m [32mz4 [01;36m[01;34m [00m[K[?1h=[?2004hsstat / | grep Inode[19D[7ms[7mt[7ma[7mt[7m [7m/[7m [7m|[7m [7mg[7mr[7me[7mp[7m [7mI[7mn[7mo[7md[7me[27m[19D[27ms[27mt[27ma[27mt[27m [27m/[27m [27m|[27m [27mg[27mr[27me[27mp[27m [27mI[27mn[27mo[27md[27me[?1l>[?2004l
+]2;stat / | grep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn,.idea,.tox} ]1;statDevice: 23h/35d	[01;31m[KInode[m[K: 256         Links: 1
+]7;file://fedora/home/ventus/OneDrive/Documents/uwr/SO/lista5/z4\]2;ventus@fedora:~/OneDrive/Documents/uwr/SO/lista5/z4]1;../SO/lista5/z4[0m[27m[24m[J[01;36m☁ [01;32m [32mz4 [01;36m[01;34m [00m[K[?1h=[?2004hlls -lia / | grep -w usr[23D[7ml[7ms[7m [7m-[7ml[7mi[7ma[7m [7m/[7m [7m|[7m [7mg[7mr[7me[7mp[7m [7m-[7mw[7m [7mu[7ms[7mr[27m[23D[27ml[27ms[27m [27m-[27ml[27mi[27ma[27m [27m/[27m [27m|[27m [27mg[27mr[27me[27mp[27m [27m-[27mw[27m [27mu[27ms[27mr[?1l>[?2004l
+]2;ls --color=tty -lia / | grep --color=auto  -w usr]1;ls265 lrwxrwxrwx.   1 root root    7 Jan 26  2021 bin -> [01;31m[Kusr[m[K/bin
+266 lrwxrwxrwx.   1 root root    7 Jan 26  2021 lib -> [01;31m[Kusr[m[K/lib
+267 lrwxrwxrwx.   1 root root    9 Jan 26  2021 lib64 -> [01;31m[Kusr[m[K/lib64
+268 lrwxrwxrwx.   1 root root    8 Jan 26  2021 sbin -> [01;31m[Kusr[m[K/sbin
+276 drwxr-xr-x.   1 root root  106 Nov  5 09:19 [01;31m[Kusr[m[K
+]7;file://fedora/home/ventus/OneDrive/Documents/uwr/SO/lista5/z4\]2;ventus@fedora:~/OneDrive/Documents/uwr/SO/lista5/z4]1;../SO/lista5/z4[0m[27m[24m[J[01;36m☁ [01;32m [32mz4 [01;36m[01;34m [00m[K[?1h=[?2004hlls -lia /usr | grep -w bin[26D[7ml[7ms[7m [7m-[7ml[7mi[7ma[7m [7m/[7mu[7ms[7mr[7m [7m|[7m [7mg[7mr[7me[7mp[7m [7m-[7mw[7m [7mb[7mi[7mn[27m[26D[27ml[27ms[27m [27m-[27ml[27mi[27ma[27m [27m/[27mu[27ms[27mr[27m [27m|[27m [27mg[27mr[27me[27mp[27m [27m-[27mw[27m [27mb[27mi[27mn[?1l>[?2004l
+]2;ls --color=tty -lia /usr | grep --color=auto  -w bin]1;ls  2171 dr-xr-xr-x. 1 root root 30484 Nov  9 12:27 [01;31m[Kbin[m[K
+]7;file://fedora/home/ventus/OneDrive/Documents/uwr/SO/lista5/z4\]2;ventus@fedora:~/OneDrive/Documents/uwr/SO/lista5/z4]1;../SO/lista5/z4[0m[27m[24m[J[01;36m☁ [01;32m [32mz4 [01;36m[01;34m [00m[K[?1h=[?2004hlls -lia /usr/bin | grep -w cc[29D[7ml[7ms[7m [7m-[7ml[7mi[7ma[7m [7m/[7mu[7ms[7mr[7m/[7mb[7mi[7mn[7m [7m|[7m [7mg[7mr[7me[7mp[7m [7m-[7mw[7m [7mc[7mc[27m[29D[27ml[27ms[27m [27m-[27ml[27mi[27ma[27m [27m/[27mu[27ms[27mr[27m/[27mb[27mi[27mn[27m [27m|[27m [27mg[27mr[27me[27mp[27m [27m-[27mw[27m [27mc[27mc[?1l>[?2004l
+]2;ls --color=tty -lia /usr/bin | grep --color=auto  -w cc]1;ls402311 lrwxrwxrwx. 1 root root           3 Jul 28 13:23 [01;31m[Kcc[m[K -> gcc
+]7;file://fedora/home/ventus/OneDrive/Documents/uwr/SO/lista5/z4\]2;ventus@fedora:~/OneDrive/Documents/uwr/SO/lista5/z4]1;../SO/lista5/z4[0m[27m[24m[J[01;36m☁ [01;32m [32mz4 [01;36m[01;34m [00m[K[?1h=[?2004hlls -Llia /usr/bin[17D[7ml[7ms[7m [7m-[7mL[7ml[7mi[7ma[7m [7m/[7mu[7ms[7mr[7m/[7mb[7mi[7mn[27m[17D[27ml[27ms[27m [27m-[27mL[27ml[27mi[27ma[27m [27m/[27mu[27ms[27mr[27m/[27mb[27mi[27mn/[90mcc[39m[39mc[39mc[?1l>[?2004l
+]2;ls --color=tty -Llia /usr/bin/cc]1;ls402584 -rwxr-xr-x. 3 root root 1224000 Jul 28 13:29 [0m[01;32m/usr/bin/cc[0m
+]7;file://fedora/home/ventus/OneDrive/Documents/uwr/SO/lista5/z4\]2;ventus@fedora:~/OneDrive/Documents/uwr/SO/lista5/z4]1;../SO/lista5/z4[0m[27m[24m[J[01;36m☁ [01;32m [32mz4 [01;36m[01;34m [00m[K[?1h=[?2004hsstat -L /usr/bin/cc[19D[7ms[7mt[7ma[7mt[7m [7m-[7mL[7m [7m/[7mu[7ms[7mr[7m/[7mb[7mi[7mn[7m/[7mc[7mc[27m[19D[27ms[27mt[27ma[27mt[27m [27m-[27mL[27m [27m/[27mu[27ms[27mr[27m/[27mb[27mi[27mn[27m/[27mc[27mc[?1l>[?2004l
+]2;stat -L /usr/bin/cc]1;stat  File: /usr/bin/cc
+  Size: 1224000   	Blocks: 2392       IO Block: 4096   regular file
+Device: 23h/35d	Inode: 402584      Links: 3
+Access: (0755/-rwxr-xr-x)  Uid: (    0/    root)   Gid: (    0/    root)
+Context: system_u:object_r:bin_t:s0
+Access: 2021-11-09 12:52:17.836808826 +0100
+Modify: 2021-07-28 13:29:49.000000000 +0200
+Change: 2021-11-04 20:36:24.743430193 +0100
+ Birth: 2021-11-04 20:36:24.738430192 +0100
+]7;file://fedora/home/ventus/OneDrive/Documents/uwr/SO/lista5/z4\]2;ventus@fedora:~/OneDrive/Documents/uwr/SO/lista5/z4]1;../SO/lista5/z4[0m[27m[24m[J[01;36m☁ [01;32m [32mz4 [01;36m[01;34m [00m[K[?1h=[?2004h[?2004l
+
+Script done on 2021-11-09 13:22:10+01:00 [COMMAND_EXIT_CODE="0"]
