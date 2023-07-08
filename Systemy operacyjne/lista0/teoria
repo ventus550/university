@@ -1,8 +1,0 @@
-przestrzeń adresowa - abstrakcja pamięci fizycznej, procesy postrzegają ją jako rzeczywistą pamięć.
-W przestrzeni adresowej znajduje się np. kod wykonywanego programu, stack, heap itd.
-Ogólnie przestrzeń adresowa należy do danego procesu i każdy proces ma własną przestrzeń.
-
-trap - instrukcja hardware'owa inicjująca system call.
-Hardware przekazuje kontrolę odpowiedniemu trap handlerowi i podnosi poziom uprawnień do trybu jądra. Po wykonaniu przez system instrukcji kontrola jest przekazywana z powrotem użytkownikowi poprzez specjalną return-from-trap instrukcję.
-
-
