@@ -25,7 +25,7 @@ def primePairsUgly(n: Int): List[(Int, Int)] = {
   do {
     var j = 1
     do {
-      if (isPrimeUgly(i + j) && i > j) {
+      if (isPrimeUgly(i + j)) {
         pairs = (i, j) :: pairs
       }
       j += 1
