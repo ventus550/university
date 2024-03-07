@@ -38,6 +38,7 @@ class Square(a: Point, b: Point, c: Point, d: Point) extends Shape {
   val description: String = "Square"
 }
 
+// Companion objects
 object Triangle {
   def apply(a: Point, b: Point, c: Point): Triangle = new Triangle(a, b, c)
 }
