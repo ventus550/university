@@ -20,22 +20,20 @@ class Blackjack(deck: Deck) {
   }
 
   lazy val all21: List[List[Card]] = {
-    def find21(cards: List[Card], target: Int): List[List[Card]] = {
-      if (target == 0) List(Nil)
-      else if (target < 0 || cards.isEmpty) Nil
+    def find21(cards: List[Card], target: Int, path: List[Card], result: List[List[Card]]): List[List[Card]] = {
+      if (target == 0) result :+ path
+      else if (target < 0 || cards.isEmpty) result
       else {
-        find21(cards.tail, target) ++
-          find21(cards.tail, target - calculatePoints(cards.head)).map(cards.head ::)
+        find21(cards.tail, target, path, result) ++ find21(cards.tail, target - calculatePoints(cards.head), path :+ cards.head, result)
       }
     }
 
-    find21(deck.cards, 21)
+    find21(deck.cards, 21, List(), List())
   }
 
   def first21(): Unit = {
     all21.headOption match {
       case Some(cards) =>
-        println("First combination of cards that sum up to 21:")
         cards.foreach(println)
       case None =>
         println("No combination of cards sum up to 21.")

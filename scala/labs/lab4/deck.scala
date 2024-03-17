@@ -3,7 +3,7 @@ package deck
 import scala.util.Random
 import cards._
 
-class Deck(cards: List[Card]) {
+class Deck(val cards: List[Card]) {
   // Creates new deck without the first card
   def pull(): Deck = new Deck(cards.tail)
 
@@ -11,6 +11,8 @@ class Deck(cards: List[Card]) {
   def push(c: Card): Deck = new Deck(c :: cards)
   def push(suit: Suit, value: Int): Deck = push(Card(suit, value))
   def push(suit: Suit, face: Face): Deck = push(Card(suit, face))
+
+  // val cards: List[Card] = cards
 
   // Checks if deck is a standard deck
   val isStandard: Boolean = cards.length == 52
@@ -37,11 +39,16 @@ class Deck(cards: List[Card]) {
 object Deck {
   def apply(): Deck = {
     val suits = List(Clubs, Diamonds, Hearts, Spades)
-    val values = (2 to 10) ++ List(Jack, Queen, King)
-    val cards = for {
+    val numericalValues = (2 to 10)
+    val faceValues = List(Jack, Queen, King)
+    val numericalCards = for {
       suit <- suits
-      value <- values
+      value <- numericalValues
     } yield Card(suit, value)
-    new Deck(Random.shuffle(cards))
+    val faceCards = for {
+      suit <- suits
+      face <- faceValues
+    } yield Card(suit, face)
+    new Deck(Random.shuffle(numericalCards ++ faceCards))
   }
 }
