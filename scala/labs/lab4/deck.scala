@@ -9,10 +9,6 @@ class Deck(val cards: List[Card]) {
 
   // Creates new deck with given card pushed on top
   def push(c: Card): Deck = new Deck(c :: cards)
-  def push(suit: Suit, value: Int): Deck = push(Card(suit, value))
-  def push(suit: Suit, face: Face): Deck = push(Card(suit, face))
-
-  // val cards: List[Card] = cards
 
   // Checks if deck is a standard deck
   val isStandard: Boolean = cards.length == 52

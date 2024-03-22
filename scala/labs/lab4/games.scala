@@ -23,9 +23,8 @@ class Blackjack(deck: Deck) {
     def find21(cards: List[Card], target: Int, path: List[Card], result: List[List[Card]]): List[List[Card]] = {
       if (target == 0) result :+ path
       else if (target < 0 || cards.isEmpty) result
-      else {
+      else
         find21(cards.tail, target, path, result) ++ find21(cards.tail, target - calculatePoints(cards.head), path :+ cards.head, result)
-      }
     }
 
     find21(deck.cards, 21, List(), List())
