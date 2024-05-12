@@ -167,8 +167,8 @@ multitest = function(p, µ, alpha, method = "bonferroni") {
 
 	return(c(
 		rejected = any(rejections),
-		fdr = sum(rejections[false.head:length(rejections)]) / max(1, sum(rejections)),
-		power = sum(rejections[1:false.head]) / false.head
+		fdr = sum(rejections[(false.head+1):length(rejections)]) / max(1, sum(rejections)),
+		power = sum(rejections[1:(false.head+1)]) / false.head
 	))
 }
 
