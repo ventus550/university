@@ -26,30 +26,35 @@ for (i in 1:6) {
 𝞢 = cov(data); 𝞢
 
 boundary.statistic = function(n, p, level) p*(n-1)/(n-p)*qf(level, p, n-p) / n
-is_within_ellipse = function(v, mu, sigma, level = 0.95, n = length(data)) {
+is_within_ellipse = function(v, mu, sigma, level = 0.95, n = nrow(data)) {
 	return( t(v - mu) %*% solve(sigma) %*% (v - mu) <= boundary.statistic(n, length(mu), level) )
 }
 
-new.means = c(214.97, 130, 129.67, 8.3, 10.16, 141.5)
+new.means = c(214.97, 130, 129.67, 8.3, 10.16, 141.52)
 is_within_ellipse(new.means, µ, 𝞢)[1]
 
-bonferroni.confidence.region = function (data, conf.level=0.95) {
+bonferroni.confidence.region = function (data, conf.level=0.05) {
 	bonferroni.conf.level = conf.level / ncol(data)
-	ttest.confidence.interval = function (sample, conf.level)
-		t.test(sample, conf.level=bonferroni.conf.level)$conf.int
+	ttest.confidence.interval = function (sample) {
+		µ = mean(sample)
+		t = qt(bonferroni.conf.level / 2, df=length(sample) - 1) * sqrt(var(sample) / length(sample))
+		return(c(µ - t, µ + t))
+	}
 	
 	confidence.intervals = apply(data, 2, ttest.confidence.interval)
 	return (confidence.intervals)
 }
 
-bonferroni.confidence.region.test = function(data, means, conf.level=0.95) {
+bonferroni.confidence.region.test = function(data, means, conf.level=0.05) {
 	confidence.intervals = bonferroni.confidence.region(data, conf.level=conf.level)
 	return( all(apply(t(confidence.intervals) - means, 1, prod) < 0) )
 }
 
-bonferroni.confidence.region.test(data, new.means)[1]
+bonferroni.confidence.region.test(data, new.means)
 
 regions = bonferroni.confidence.region(data)
+
+regions
 
 # https://rdrr.io/cran/ellipse/man/ellipse.html
 confidence.ellipse = function(mu, sigma, which=c(1, 2), level=0.95, rescale = TRUE, n = nrow(data)) {
@@ -57,8 +62,8 @@ confidence.ellipse = function(mu, sigma, which=c(1, 2), level=0.95, rescale = TR
 	
 	if (!rescale)
 		plotz = plotz + coord_equal()
-		
-	ellipse_data1 = ellipse(x = sigma, centre = mu[which], which = which, t = boundary.statistic(n, 2, level))
+
+	ellipse_data1 = ellipse(x = sigma, centre = mu[which], which = which, t = sqrt(boundary.statistic(n, 2, level)))
 	colnames(ellipse_data1) = c("x", "y")
 	plotz = plotz + geom_path(data = ellipse_data1, aes(x, y), color = "black", alpha=sqrt(1-level))
 
@@ -188,5 +193,211 @@ simulate.multiple.testing(µa, reps=10000)
 
 µb = c(rep(sqrt(2 * log(p)), 500), rep(0, p - 500))
 simulate.multiple.testing(µb, reps=10000)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
