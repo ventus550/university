@@ -12,6 +12,8 @@ data = apply(data - 10, 2, function(col) col / sd(col))
 
 data[1:5,]
 
+sd(data[,1])
+
 par(mfrow = c(6, 2), mar=c(4.1, 4.1, 4.1, 2.1))
 options(repr.plot.width=18, repr.plot.height=18)
 
@@ -30,11 +32,11 @@ first = data[1:5,]; first
 # µ = as.matrix(as.numeric(colMeans(data)))
 
 xnorm = sum(µmle**2)
-µjs.zero = (1 - (1/25)*(ncol(data) - 2) / xnorm) * µmle
+µjs.zero = (1 - (1/5)*(ncol(data) - 2) / xnorm) * µmle
 
 # should we use true mean here?
 xnorm = sum((µmle - µ)**2)
-µjs.mean = µ + (1 - (1/25)*(ncol(data) - 2) / xnorm) * (µmle - µ)
+µjs.mean = µ + (1 - (1/5)*(ncol(data) - 2) / xnorm) * (µmle - µ)
 
 plot(µ, µmle, col = "darkred", asp = 1, frame = FALSE, pch=10)
 points(µ, µjs.zero, col = "darkblue", pch=20)
@@ -45,7 +47,7 @@ legend(
 	legend = c("Maximum likelihood estimator", "Schrink to zero", "Shrink to common mean"),
 	col = c("darkred", "darkblue", "darkgreen"),
 	pch = c(10, 20, 22),
-	cex = 0.8,
+	cex = 1.2,
 )
 
 sum((µ - µmle)**2)
@@ -67,15 +69,15 @@ model.prediction.error = function(p) {
 
 	B = solve(t(X) %*% X) %*% t(X) %*% y
 
-	Y =  X %*% B 
+	Y =  X %*% B
 	RSS = sum((Y - y)**2)
 	M = X %*% solve(t(X) %*% X) %*% t(X)
 	var = RSS / (n - p)
 
 	return(c(
-		PE  = sum((X %*% (β - B))**2) + 1*n,
+		PE  = sum((X %*% (β - B))**2) + n,
 		PE1 = RSS + 2*var*p,
-		PE2 = RSS + 2*1*p,
+		PE2 = RSS + 2*p,
 		PE3 = sum(((Y - y) / (1 - diag(M)))**2)
 	))
 }
@@ -149,11 +151,11 @@ lasso.min.metrics
 
 lasso.1se.metrics
 
-lasso.new = glmnet(X, y, alpha=1, lambda = qnorm(1 - 0.1/2/p)/n)
+lasso.arg = glmnet(X, y, alpha=1, lambda = qnorm(1 - 0.1/2/p)/n)
 
-coef(lasso.new)
+lasso.arg.metrics = metrics(coef(lasso.arg)[-1,])
 
-lasso.new.metrics
+lasso.arg.metrics
 
 lasso.ols = glmnet(X, y, alpha=1, lambda=0)
 lasso.ols.metrics = metrics(coef(lasso)[-1,])
