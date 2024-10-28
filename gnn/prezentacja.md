@@ -21,6 +21,23 @@ math: katex
 
 ---
 
+# Agenda
+- Introduction to link prediction problems
+- Exploration of methods
+- Comparisons and conclusions
+
+---
+
+# Link prediction problem
+Link prediction is to predicting whether two nodes in a network are likely to have a link
+
+---
+
+# Applications
+
+---
+
+
 ![bg left:40%](https://media.discordapp.net/attachments/732346178062254183/1300174252473061577/file-2nzvfNZEY3szDOJQora8wRKS.png?ex=671fe121&is=671e8fa1&hm=d6a07b18b88c1bbcbc56261eace7cb942538e8ef8a62b844023cac47058cb721&=&format=webp&quality=lossless&width=396&height=396)
 
 - **Friend Suggestions**
@@ -72,7 +89,7 @@ Assists in understanding genetic diseases by predicting gene-gene interactions.
 This class of heuristics considers only the local subgraphs of the nodes in question.
 ![w:1000](https://media.discordapp.net/attachments/732346178062254183/1300183745390841866/image.png?ex=671fe9f9&is=671e9879&hm=377135a5883ff750aa17116988d9f68ea9f8f1937e8e8b461954011046edb3c0&=&format=webp&quality=lossless&width=1305&height=353)
 
-Here $\Gamma(x)$ denotes the neighbours of x.
+Here $\Gamma(x)$ denotes the neighbors of x.
 
 ---
 
@@ -104,6 +121,15 @@ Therefore, $[\pi_x]_y$ essentially estimates how likely it is to reach node $y$ 
 
 ---
 <style scoped>section{font-size:30px;}</style>
+
+### γ-Decaying Heuristic Theory
+![alt text](image-31.png)
+> It can be shown that proves that under certain conditions, any γ-decaying heuristic can be approximated from an h-hop enclosing subgraph, and the approximation error decreases at least exponentially with h. (...) Most existing link prediction heuristics inherently share the same γ-decaying heuristic form, and thus can be effectively approximated from an h-hop enclosing subgraph.
+
+
+---
+<style scoped>section{font-size:30px;}</style>
+
 
 ### Heuristic limitations
 ![bg left:50% w:90%](image-1.png)
@@ -161,7 +187,7 @@ Can graph neural network compete with the other methods?
 
 # Graph Convolutional Network (GCN)
 ![w:1000](image-5.png)
-The convolution is neighbourhood aggregation and resembles that of the regular convolutional networks if we think of the closest pixels as a neighbourhood subgraph.
+The convolution is neighborhood aggregation and resembles that of the regular convolutional networks if we think of the closest pixels as a neighborhood subgraph.
 
 ---
 <style scoped>section{font-size:20px;}</style>
@@ -207,6 +233,14 @@ Just like in GAE a GCN encoder and a simple dot product decoder are proposed.
 
 ---
 
+### Weisfeiler-Lehman Neural Machine
+![w:800](image-35.png)
+
+---
+
+![w:1100](image-34.png)
+
+---
 
 # SEAL
 (learning from Subgraphs, Embeddings, and Attributes for Link prediction)
@@ -228,7 +262,6 @@ Just like in GAE a GCN encoder and a simple dot product decoder are proposed.
 
 ## Node Labeling
 ![bg left:50% w:90%](image-23.png)
-
 - **Purpose:** give an integer label to each node in the subgraph as its additional
 feature to differentiate nodes of different roles within a subgraph
 - **Process:** Double Radius Node Labeling
@@ -236,6 +269,10 @@ feature to differentiate nodes of different roles within a subgraph
 
 ![w:500](image-25.png)
 > We iteratively assign larger labels to nodes with a larger radius w.r.t. both center nodes
+
+---
+
+![alt text](image-33.png)
 
 ---
 
