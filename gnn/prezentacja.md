@@ -17,10 +17,7 @@ math: katex
 ---
 
 # Link Prediction
-
----
-
-# Link prediction methods
+<!-- Link prediction is to predicting whether two nodes in a network are likely to have a link -->
 
 ---
 
@@ -85,6 +82,14 @@ These heuristics, also known as high order heuristics, make their judgement base
 ---
 <style scoped>section{font-size:20px;}</style>
 
+# Katz index
+This index calculates a score based on all possible paths between two nodes, where longer paths contribute less to the score than shorter paths. This captures the idea that while two nodes might not be directly connected, they could still be "close" in terms of the network structure.
+![alt text](image-28.png)
+where $0 < \beta < 1$ is a decay factor and $l$ is the path length
+
+---
+<style scoped>section{font-size:20px;}</style>
+
 <!-- ![bg 100%](image.png) -->
 # Rooted PageRank
 Let $\pi_x$ be a stationary distribution representing the long-term behavior of a random walker on a graph that following a set of rules:
@@ -126,12 +131,10 @@ The latent embeddings are learned by minimizing the mean-squared error between t
 
 ---
 
-### DeepWalk
-![bg 100%](image-3.png)
+### Node2Vec / DeepWalk
+ ![w:400](image-19.png)  ![w:300](image-18.png) 
 
----
-
-### Comparison?
+ ![alt text](image-21.png)
 
 ---
 
@@ -200,11 +203,65 @@ Just like in GAE a GCN encoder and a simple dot product decoder are proposed.
 
 ---
 
-
-# SEAAAL
+![bg w:1200](image-20.png)
 
 ---
 
 
+# SEAL
+(learning from Subgraphs, Embeddings, and Attributes for Link prediction)
+![w:1100](image-26.png)
+
+---
+<style scoped>section{font-size:20px;}</style>
+
+## Subgraph Extraction
+- **Purpose:** extracting subgraphs simplifies the prediction task by reducing the problem size and focusing on the local structure, which is more directly relevant to the potential link.
+- **Process:** for each pair of nodes $u$ and $v$ use k-hop neighborhood (nodes within k steps from $u$ and $v$) to extract the subgraph.
+
+![bg left:50% w:90%](image-22.png)
+
+![w:500](image-24.png)
+
+---
+<style scoped>section{font-size:20px;}</style>
+
+## Node Labeling
+![bg left:50% w:90%](image-23.png)
+
+- **Purpose:** give an integer label to each node in the subgraph as its additional
+feature to differentiate nodes of different roles within a subgraph
+- **Process:** Double Radius Node Labeling
+(assign 1 to x and y and hash all else)
+
+![w:500](image-25.png)
+> We iteratively assign larger labels to nodes with a larger radius w.r.t. both center nodes
+
+---
+
+<style scoped>section{font-size:20px;}</style>
+
+## Representation learning and prediction
+> SEAL feeds these enclosing subgraphs as well as their new node feature
+> vectors into a graph-level GNN, DGCNN (Zhang et al, 2018g), to learn a graph
+> classification function. The groundtruth of each subgraph is whether the two center
+> nodes really have a link. To train this GNN, SEAL randomly samples N existing
+> links from the network as positive training links, and samples an equal number
+> of unobserved links (random node pairs) as negative training links.
+
+![alt text](image-27.png)
+
+
+
+---
+
+
+![w:1200](image-30.png)
+
+---
+#### Node-based vs Subgraph-methods
+![w:1000](image-29.png)
+
+---
 
 # End
