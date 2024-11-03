@@ -27,3 +27,4 @@ impl Complex {
         (self.re * self.re + self.im * self.im).sqrt()
     }
 }
+

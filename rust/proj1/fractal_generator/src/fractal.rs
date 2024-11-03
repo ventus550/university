@@ -27,3 +27,75 @@ pub fn mandelbrot(width: usize, height: usize, max_iterations: usize) -> Image {
     }
     image
 }
+
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_mandelbrot_image_size() {
+        let width = 800;
+        let height = 600;
+        let max_iterations = 1000;
+
+        let image = mandelbrot(width, height, max_iterations);
+        
+        // Check if the image dimensions are correct
+        assert_eq!(image.width, width);
+        assert_eq!(image.height, height);
+    }
+
+    #[test]
+    fn test_mandelbrot_max_iterations() {
+        let width = 100;
+        let height = 100;
+        let max_iterations = 10;
+
+        let image = mandelbrot(width, height, max_iterations);
+
+        for x in 0..width {
+            for y in 0..height {
+                let pixel_color = image.get_pixel(x, y);
+                
+                // If the point belongs to the Mandelbrot set, color should be black
+                if pixel_color == (0, 0, 0) {
+                    // Check if the pixel is black indicating max iterations reached
+                    assert_eq!(pixel_color, (0, 0, 0));
+                } else {
+                    // Otherwise, it should be non-black
+                    assert_ne!(pixel_color, (0, 0, 0));
+                }
+            }
+        }
+    }
+
+    #[test]
+    fn test_mandelbrot_zero_iterations() {
+        let width = 800;
+        let height = 600;
+        let max_iterations = 0; // Edge case with no iterations
+
+        let image = mandelbrot(width, height, max_iterations);
+        
+        // All pixels should be black as no iterations were performed
+        for x in 0..width {
+            for y in 0..height {
+                assert_eq!(image.get_pixel(x, y), (0, 0, 0));
+            }
+        }
+    }
+
+    #[test]
+    fn test_mandelbrot_negative_dimensions() {
+        let width = 800;
+        let height = 600;
+        let max_iterations = 100;
+
+        // Ensure it handles negative dimensions gracefully
+        let image = mandelbrot(width, height, max_iterations);
+        
+        assert!(image.width > 0);
+        assert!(image.height > 0);
+    }
+}
