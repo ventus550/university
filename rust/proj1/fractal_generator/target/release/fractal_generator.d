@@ -1,0 +1,1 @@
+/home/ventus/university/rust/proj1/fractal_generator/target/release/fractal_generator: /home/ventus/university/rust/proj1/fractal_generator/src/complex.rs /home/ventus/university/rust/proj1/fractal_generator/src/fractal.rs /home/ventus/university/rust/proj1/fractal_generator/src/image.rs /home/ventus/university/rust/proj1/fractal_generator/src/main.rs
