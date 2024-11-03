@@ -50,24 +50,12 @@ mod tests {
     fn test_mandelbrot_max_iterations() {
         let width = 100;
         let height = 100;
-        let max_iterations = 10;
+        let max_iterations = 100;
 
         let image = mandelbrot(width, height, max_iterations);
-
-        for x in 0..width {
-            for y in 0..height {
-                let pixel_color = image.get_pixel(x, y);
-                
-                // If the point belongs to the Mandelbrot set, color should be black
-                if pixel_color == (0, 0, 0) {
-                    // Check if the pixel is black indicating max iterations reached
-                    assert_eq!(pixel_color, (0, 0, 0));
-                } else {
-                    // Otherwise, it should be non-black
-                    assert_ne!(pixel_color, (0, 0, 0));
-                }
-            }
-        }
+        
+        let pixel_color = image.get_pixel(width / 2, height / 2);
+        assert_eq!(pixel_color, (0, 0, 0));
     }
 
     #[test]
