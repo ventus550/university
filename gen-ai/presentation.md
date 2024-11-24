@@ -9,11 +9,94 @@ backgroundColor: white
 #     section {
 #       justify-content: flex-start;
 #     }
+
+
+
+
 ---
+
+![w:1000](image-16.png)
+
+---
+
+# Contents
+- introduction
+- applications
+- data
+- architecture
+- challenges/limitations
+
+---
+
+# What is SORA?
+- SORA means sky in Japanese.
+- A text-to-video **multimodal** generative diffusion transformer model by OpenAI (February, 2024)
+- Not an official technical report
+![w:1000](image-17.png)
+
+---
+
+# Emergent properties
+
+<!-- Talk about how multimodality may facilitiate better model performance.
+Also mention how the model size impacts the results. -->
+
+![w:900](image-24.png)
+
+---
+
+![w:900](image-7.png)
+
+
+---
+
+
+# Applications
+
+![w:1000](image-18.png)
+
+<!-- If you feel like it doesnt take 5 minutes then append some slidees with examples -->
+
+---
+
+
+# Data
+- The main challanges of variable durations, resolutions and aspect ratios
+- Improvements over the traditional models
+- Video embeddings
+
+
+---
+
+![w:800](image-19.png)
+Traditional methods often resize, crop or adjust the aspect ratios of videos to fit a uniform standard
+
+---
+
+
+![w:800](image-20.png)
+- expand on the PnP
+- try to either not mention VAE and also encoder is not the data formatting method
+
+
+---
+
+![w:800](image-21.png)
+
+---
+
+![w:800](image-22.png)
+
+---
+
+
+![w:1100](image-23.png)
+
+---
+
 
 # Presumed Architecture
 How do the experts think the SORA works?
-
 
 ---
 
@@ -47,9 +130,6 @@ Regular Autoencoder | Variational Autoencoder
 
 ---
 
-![w:900](image-7.png)
-
----
 
 #### Imagen Video Framework
 
@@ -88,6 +168,7 @@ TSR = temporal super-resolution
 ---
 
 
+
 # Prompt Engineering
 How do we talk with SORA?
 
@@ -102,6 +183,8 @@ How do we talk with SORA?
 ---
 
 ![w:1100](image-14.png)
+
+
 
 ---
 
@@ -122,3 +205,5 @@ How do we talk with SORA?
 ---
 
 # End
+![](https://user-images.githubusercontent.com/6876788/96633009-d1818000-1318-11eb-9f1d-7f914f4ccb16.gif)
+
