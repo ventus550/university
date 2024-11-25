@@ -10,9 +10,6 @@ backgroundColor: white
 #       justify-content: flex-start;
 #     }
 
-
-
-
 ---
 
 ![w:1000](image-16.png)
@@ -20,18 +17,18 @@ backgroundColor: white
 ---
 
 # Contents
-- introduction
-- applications
-- data
-- architecture
-- challenges/limitations
+- Introduction
+- Applications
+- Data
+- Architecture
+- Challenges/limitations
 
 ---
 
 # What is SORA?
 - SORA means sky in Japanese.
 - A text-to-video **multimodal** generative diffusion transformer model by OpenAI (February, 2024)
-- Not an official technical report
+- **Not** an official technical report
 ![w:1000](image-17.png)
 
 ---
@@ -41,7 +38,9 @@ backgroundColor: white
 <!-- Talk about how multimodality may facilitiate better model performance.
 Also mention how the model size impacts the results. -->
 
-![w:900](image-24.png)
+
+![w:700](image-28.png)  ![w:350](image-27.png)
+
 
 ---
 
@@ -55,40 +54,75 @@ Also mention how the model size impacts the results. -->
 
 ![w:1000](image-18.png)
 
-<!-- If you feel like it doesnt take 5 minutes then append some slidees with examples -->
+<!-- If you feel like it doesnt take 5 minutes then append some slides with examples -->
 
 ---
 
-
 # Data
+
 - The main challanges of variable durations, resolutions and aspect ratios
-- Improvements over the traditional models
-- Video embeddings
+- Traditional methods often resize, crop or adjust the aspect ratios of videos to fit a uniform standard
 
 
 ---
 
 ![w:800](image-19.png)
-Traditional methods often resize, crop or adjust the aspect ratios of videos to fit a uniform standard
 
 ---
 
+<!-- - expand on the PnP
+- try to either not mention VAE and also encoder is not the data formatting method -->
+### Unified Visual Representation
 
-![w:800](image-20.png)
-- expand on the PnP
-- try to either not mention VAE and also encoder is not the data formatting method
-
-
----
-
-![w:800](image-21.png)
+![w:1200](image-20.png)
 
 ---
 
-![w:800](image-22.png)
+### Video Compression Network
+
+#### Spatial Patch Compression
+
+- Convert video frames into fixed size patches
+- Temporal dimension variability, Pre-trained visual encoders, Temporal information aggregation
 
 ---
 
+![w:1000](image-21.png)
+
+---
+
+#### Spatial-Temporal Patch Compression
+
+- Captures dynamic changes across the frames.
+- 3D convolution - fixed kernel sizes, strides and output channels
+- Since, Sora aims to generate high fidelity videos, a large patch size/ kernel size is used for efficient compression.
+- Varying-size patches could also be used but it would compromise the positional embeddings.
+- Still a concern how to handle varying number of patches.
+
+---
+
+![w:1200](image-22.png)
+
+---
+
+### Spacetime Latent Patches
+
+- Solution - Patch n' pack
+- Enables variable resolution, preserves aspect ratio.
+- Addresses two challenges:-
+    1. Compact Packing
+    2. Token Dropping
+
+---
+
+#### Why It Matters:
+- The PNP technique optimizes transformer-based models for variable-length inputs by:
+
+    1. Efficiently handling sequence lengths through compact packing.
+    2. Reducing unnecessary computational load by discarding redundant tokens.
+    3. Using the fixed sequence lengths necessary for batched operations.
+
+---
 
 ![w:1100](image-23.png)
 
@@ -189,6 +223,20 @@ How do we talk with SORA?
 ---
 
 # Alignment and Learning with Human Feedback
+
+---
+
+![w:1000](image-25.png)
+
+---
+
+<!-- plausible sora approach to RL alignment -->
+> Proximal Policy Optimization (PPO) is an algorithm in the field of reinforcement learning that trains a computer agent’s decision function to accomplish difficult tasks. PPO was developed by John Schulman in 2017,had become the default reinforcement learning algorithm at American artificial intelligence company OpenAI.
+
+
+---
+
+![w:1200](image-26.png)
 
 ---
 
