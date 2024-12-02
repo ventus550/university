@@ -13,6 +13,23 @@ style: |
     font-size: 30px;
   }
 
+
+---
+### LightGCN: Simplifying and Powering Graph Convolution Network for Recommendation
+
+---
+### Recommendation paradigms
+![w:1000](image-27.png)
+
+
+---
+### LightGCN role in Collaborative Filtering
+![w:700](image-26.png)
+
+---
+### Neural network recommendation framework
+![w:1000](image-28.png)
+
 ---
 ### Graph Convolutional Networks (GCN)
 
@@ -68,7 +85,8 @@ while only one path connects <i5,u1> -->
 
 ---
 ### Performance measure
-![w:1000](image-18.png)
+
+![w:600](image-18.png)
 
 ---
 ### Simplifying NGCF
