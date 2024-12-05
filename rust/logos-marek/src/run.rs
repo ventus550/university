@@ -4,10 +4,10 @@ pub mod run {
     use rand::prelude::*;
     use std::{collections::HashMap};
 
-    fn evaluate_arg(arg: Argumnet, context: &HashMap<String, Value>) -> Result<Value, String> {
+    fn evaluate_arg(arg: Argument, context: &HashMap<String, Value>) -> Result<Value, String> {
         match arg {
-            Argumnet::List(list) => Ok(Value::Instructions(list)),
-            Argumnet::Comp(comp, l_expr, r_expr) => {
+            Argument::List(list) => Ok(Value::Instructions(list)),
+            Argument::Comp(comp, l_expr, r_expr) => {
                 let l_res = evaluate_expr(*l_expr, context)?;
                 let r_res = evaluate_expr(*r_expr, context)?;
     
@@ -22,7 +22,7 @@ pub mod run {
                     _ => Err(format!("Could not comperate since {:?} {:?} are not two numbers", l_res, r_res)),
                 }
             }
-            Argumnet::Expr(expr) => evaluate_expr(*expr, context),
+            Argument::Expr(expr) => evaluate_expr(*expr, context),
         }
     }
     
@@ -176,7 +176,7 @@ pub mod run {
         }
     }
 
-    fn get_ith_arg_as_instr (instr: &Func, context: &HashMap<String, Value>, i: usize) -> Result<Vec<Func>, String> {
+    fn get_ith_arg_as_instr(instr: &Func, context: &HashMap<String, Value>, i: usize) -> Result<Vec<Func>, String> {
         if instr.args.len() < i {
             Err(format!("No argument number {} for {:?}", i, instr).to_string())
         } else {
@@ -188,7 +188,7 @@ pub mod run {
         }
     }
 
-    fn get_args (instr: &Func, context: &HashMap<String, Value>) -> Result<Vec<Value>, String> {
+    fn get_args(instr: &Func, context: &HashMap<String, Value>) -> Result<Vec<Value>, String> {
         instr.args.iter()
             .map(|a| evaluate_arg(a.clone(), &context))
             .fold(Ok(vec![]), |acc, x| Ok(cons(acc?, x?)))

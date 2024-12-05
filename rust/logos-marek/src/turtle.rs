@@ -3,9 +3,9 @@ pub mod turtle {
 
     #[derive(Debug, Clone, PartialEq, Eq)]
     pub struct Pixel {
-        red : u8,
-        green : u8,
-        blue : u8
+        red: u8,
+        green: u8,
+        blue: u8
     }
 
     impl Pixel {
@@ -26,7 +26,7 @@ pub mod turtle {
         /**
          * Sets pixel color using RGB
          */
-        pub fn set_rgb<'a>(&'a mut self, red: u8, green: u8, blue: u8) -> &'a mut Pixel{
+        pub fn set_rgb(&mut self, red: u8, green: u8, blue: u8) -> &mut Self {
             self.red = red;
             self.green = green;
             self.blue = blue;
@@ -36,11 +36,9 @@ pub mod turtle {
 
     impl From<String> for Pixel {
         fn from(s: String) -> Self {
-            let colors = s.chars()
-                .map(|x| if x.is_numeric() {x} else {' '})
-                .collect::<String>()
-                .split_ascii_whitespace()
-                .map(|x| x.parse().unwrap())
+            let colors = s
+                .split(|c: char| !c.is_numeric())
+                .filter_map(|x| x.parse().ok())
                 .collect::<Vec<u8>>();
 
             Pixel::new(colors[0], colors[1], colors[2])
@@ -62,7 +60,7 @@ pub mod turtle {
         pub angle: f64,
         pub x: f64,
         pub y: f64,
-        pub color: Pixel
+        pub color: Pixel,
     }
 
     impl Turtle {
@@ -71,17 +69,14 @@ pub mod turtle {
         }
 
         pub fn fd(&mut self, d: f64) {
-            let (x_m, y_m) = (self.angle.sin(), -self.angle.cos());
-            self.x += d * x_m;
-            self.y += d * y_m;
+            self.x += d * self.angle.sin();
+            self.y += d * -self.angle.cos();
         }
 
         pub fn turn(&mut self, deg: f64) {
-            self.angle += (deg / 180.0) * std::f64::consts::PI;
-            if self.angle > std::f64::consts::PI {
-                self.angle -= 2.0 * std::f64::consts::PI;
-            } else if self.angle < -std::f64::consts::PI {
-                self.angle += 2.0 * std::f64::consts::PI
+            self.angle = (self.angle + deg.to_radians()) % (2.0 * std::f64::consts::PI);
+            if self.angle < 0.0 {
+                self.angle += 2.0 * std::f64::consts::PI;
             }
         }
 

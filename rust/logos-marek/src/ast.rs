@@ -33,7 +33,7 @@ pub mod ast {
     }
 
     #[derive(Debug, Clone)]
-    pub enum Argumnet {
+    pub enum Argument {
         List(Vec<Func>),
         Comp(CompOp, Box<Expression>, Box<Expression>),
         Expr(Box<Expression>),
@@ -50,7 +50,7 @@ pub mod ast {
     #[derive(Debug, Clone)]
     pub struct Func {
         pub name: String,
-        pub args: Vec<Argumnet>
+        pub args: Vec<Argument>
     }
 
     #[derive(Debug, Clone)]

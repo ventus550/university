@@ -59,22 +59,22 @@ pub Instructions: Vec<Func> = {
     <i: Instructions> <f: Function> => cons(i, f),
 }
 
-pub Comp: Argumnet = {
-    <a:Expr> "<"  <b:Expr> => Argumnet::Comp(CompOp::Less, a, b),
-    <a:Expr> "<=" <b:Expr> => Argumnet::Comp(CompOp::LessEq, a, b),
-    <a:Expr> ">"  <b:Expr> => Argumnet::Comp(CompOp::Greater, a, b),
-    <a:Expr> ">=" <b:Expr> => Argumnet::Comp(CompOp::GreaterEq, a, b),
-    <a:Expr> "="  <b:Expr> => Argumnet::Comp(CompOp::Equal, a, b),
+pub Comp: Argument = {
+    <a:Expr> "<"  <b:Expr> => Argument::Comp(CompOp::Less, a, b),
+    <a:Expr> "<=" <b:Expr> => Argument::Comp(CompOp::LessEq, a, b),
+    <a:Expr> ">"  <b:Expr> => Argument::Comp(CompOp::Greater, a, b),
+    <a:Expr> ">=" <b:Expr> => Argument::Comp(CompOp::GreaterEq, a, b),
+    <a:Expr> "="  <b:Expr> => Argument::Comp(CompOp::Equal, a, b),
 }
 
-pub Arg: Argumnet = {
-    <e:Expr> => Argumnet::Expr(e),
+pub Arg: Argument = {
+    <e:Expr> => Argument::Expr(e),
     Comp,
-    "[" <i:Instructions> "]" => Argumnet::List(i),
-    "[" "]" => Argumnet::List(vec![]),
+    "[" <i:Instructions> "]" => Argument::List(i),
+    "[" "]" => Argument::List(vec![]),
 }
 
-pub Args: Vec<Argumnet> = {
+pub Args: Vec<Argument> = {
     <a:Arg>  => vec![a],
     <a:Args> <x:Arg> => cons(a, x),
 }
