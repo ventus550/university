@@ -19,6 +19,10 @@ pub enum Command {
     PenDown,
     SetPosition(f64, f64),
     Write(String),
+    
+    DefineFunction(String, Vec<String>, Vec<Command>), // Name, Params, Body
+    CallFunction(String, Vec<f64>),                   // Name, Arguments
+    If(Box<Command>, Vec<Command>, Vec<Command>),     // Conditional (if-then-else)
 }
 
 // Funkcja parsująca jedno polecenie

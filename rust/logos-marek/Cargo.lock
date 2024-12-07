@@ -228,6 +228,7 @@ dependencies = [
  "lalrpop-util",
  "rand",
  "regex",
+ "svg",
 ]
 
 [[package]]
@@ -429,6 +430,12 @@ dependencies = [
  "phf_shared",
  "precomputed-hash",
 ]
+
+[[package]]
+name = "svg"
+version = "0.8.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "3bdb25a4593d6656239319426f4025f7a658157e25e89f0e0319d7516d46042d"
 
 [[package]]
 name = "syn"

@@ -1,3 +1,4 @@
+use std::collections::HashMap;
 use crate::parser::Command;
 
 #[derive(Debug)]
@@ -6,7 +7,9 @@ pub struct Turtle {
     y: f64,
     angle: f64,
     pen_down: bool,
-    pub paths: Vec<(f64, f64, f64, f64)>, // Linie w formacie (x1, y1, x2, y2)
+    pub paths: Vec<(f64, f64, f64, f64)>,
+    functions: HashMap<String, (Vec<String>, Vec<Command>)>, // Function definitions
+    variables: HashMap<String, f64>,                        // Variable storage
 }
 
 impl Turtle {
@@ -17,6 +20,8 @@ impl Turtle {
             angle: 0.0,
             pen_down: true,
             paths: vec![],
+            functions: HashMap::new(),
+            variables: HashMap::new(),
         }
     }
 
@@ -30,8 +35,35 @@ impl Turtle {
                 Command::PenUp => self.pen_down = false,
                 Command::PenDown => self.pen_down = true,
                 Command::SetPosition(x, y) => self.set_position(x, y),
-                Command::Write(text) => println!("Writing: {}", text), // Obsługa napisów
+                Command::Write(text) => println!("Writing: {}", text),
+                Command::DefineFunction(name, params, body) => {
+                    self.functions.insert(name, (params, body));
+                }
+                Command::CallFunction(name, args) => {
+                    if let Some((params, body)) = self.functions.get(&name) {
+                        let prev_vars = self.variables.clone();
+                        for (param, arg) in params.iter().zip(args.iter()) {
+                            self.variables.insert(param.clone(), *arg);
+                        }
+                        self.execute(body.clone());
+                        self.variables = prev_vars; // Restore previous state
+                    }
+                }
+                Command::If(condition, then_branch, else_branch) => {
+                    if self.evaluate_condition(*condition) {
+                        self.execute(then_branch);
+                    } else {
+                        self.execute(else_branch);
+                    }
+                }
             }
+        }
+    }
+
+    fn evaluate_condition(&self, condition: Command) -> bool {
+        match condition {
+            Command::Forward(dist) => self.variables.get("size").unwrap_or(&0.0) < &dist,
+            _ => false,
         }
     }
 

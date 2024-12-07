@@ -1,0 +1,10 @@
+[package]
+name = "logos2"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+nom = "7.1"           # Parser
+svg = "0.9"           # Obsługa SVG
+serde = { version = "1.0", features = ["derive"] } # Serializacja
+serde_json = "1.0"    # Debugowanie danych

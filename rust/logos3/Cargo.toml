@@ -1,0 +1,10 @@
+[package]
+name = "logos3"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+turtle = "1.0.0-rc.3"
+meval = "0.2"
+plotters = "0.3.7"
+plotters-svg = "0.3.7"

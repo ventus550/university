@@ -1,0 +1,11 @@
+to fern 2 :size :sign
+  if less? :size 1 [ stop ]
+  fd :size
+  rt (product 70 :sign) fern (product :size 0.5) (product :sign -1) lt (product 70 :sign)
+  fd :size
+  lt (product 70 :sign) fern (product :size 0.5) :sign rt (product 70 :sign)
+  rt (product 7 :sign) fern (difference :size 1) :sign lt (product 7 :sign)
+  bk (product :size 2)
+end
+window clearscreen pu bk 150 pd
+fern 25 1
