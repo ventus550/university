@@ -8,7 +8,7 @@ __pycache__/
 
 # Distribution / packaging
 .Python
-private/
+**/private/
 build/
 develop-eggs/
 dist/
